@@ -1,0 +1,19 @@
+[Unit]
+Description=Claude Code Telegram bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Đổi User và đường dẫn cho đúng với VPS của bạn
+User=claude
+WorkingDirectory=/home/claude/claude-telegram-bridge
+EnvironmentFile=/home/claude/claude-telegram-bridge/.env
+# claude cần biết HOME để tìm thông tin đăng nhập
+Environment=HOME=/home/claude
+Environment=PATH=/home/claude/.local/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/python3 /home/claude/claude-telegram-bridge/bot.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

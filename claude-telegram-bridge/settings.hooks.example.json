@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "python3 /home/claude/claude-telegram-bridge/notify.py" }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          { "type": "command", "command": "python3 /home/claude/claude-telegram-bridge/notify.py" }
+        ]
+      }
+    ]
+  }
+}
