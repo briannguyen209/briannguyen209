@@ -19,59 +19,59 @@ Chỉ dùng Python 3 có sẵn, không cần cài thư viện.
 2. Nhắn **@userinfobot** để biết **chat ID** của bạn.
 3. Nhắn `/start` cho bot mới của bạn (bắt buộc, để bot được phép nhắn lại).
 
-## 2. Cài Claude Code trên VPS
+## 2. Thuê VPS ở Canada
+
+Chọn **Ubuntu 24.04**, vùng **Toronto** (hoặc Montreal), tối thiểu **1 vCPU / 2GB RAM** (1GB vẫn chạy được nhờ swap mà `install.sh` tạo, nhưng chậm hơn).
+
+| Nhà cung cấp | Vị trí | Gói gợi ý |
+|---|---|---|
+| DigitalOcean | Toronto (TOR1) | Basic Droplet 2GB |
+| Vultr | Toronto | Cloud Compute 2GB |
+| OVHcloud | Beauharnois (gần Montreal) | VPS gói thấp nhất |
+
+Xem giá hiện tại trên trang của từng nhà cung cấp trước khi mua.
+
+## 3. Tạo user và cài đặt (trên VPS)
+
+SSH vào VPS bằng root, tạo user thường:
 
 ```bash
-curl -fsSL https://claude.ai/install.sh | bash
+adduser claude && usermod -aG sudo claude
 ```
+
+```bash
+su - claude
+```
+
+Tải code và chạy script cài đặt (tự cài gói, tạo swap, cài Claude Code, tạo service systemd):
+
+```bash
+git clone -b claude/vigilant-pasteur-svu2m4 https://github.com/briannguyen209/briannguyen209.git ~/repo
+```
+
+```bash
+cp -r ~/repo/claude-telegram-bridge ~/claude-telegram-bridge && bash ~/claude-telegram-bridge/install.sh
+```
+
+## 4. Đăng nhập Claude, điền token, bật bot
 
 ```bash
 claude
 ```
 
-Đăng nhập một lần (gõ `/login`), rồi thoát. Kiểm tra chạy headless được:
+Gõ `/login`, đăng nhập (mở link trên điện thoại cũng được), rồi `/exit`.
 
 ```bash
-claude -p "xin chào"
+nano ~/claude-telegram-bridge/.env
 ```
 
-> Nên chạy bằng một user thường (ví dụ `claude`), không dùng `root`.
-
-## 3. Cài bridge
+Điền `TELEGRAM_BOT_TOKEN` và `TELEGRAM_CHAT_ID`, lưu lại.
 
 ```bash
-git clone https://github.com/briannguyen209/briannguyen209.git ~/repo
+sudo systemctl restart claude-telegram
 ```
 
-```bash
-cp -r ~/repo/claude-telegram-bridge ~/claude-telegram-bridge && cd ~/claude-telegram-bridge
-```
-
-```bash
-cp .env.example .env && nano .env
-```
-
-Điền `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `CLAUDE_WORKDIR`, `CLAUDE_BIN` (kết quả của `which claude`). Chạy thử:
-
-```bash
-set -a; . ./.env; set +a; python3 bot.py
-```
-
-Nhắn `/help` cho bot trên điện thoại. Chạy được thì `Ctrl+C` và làm bước 4.
-
-## 4. Chạy nền 24/7 bằng systemd
-
-Sửa `User`, các đường dẫn và `PATH` trong `claude-telegram.service` cho khớp máy bạn, rồi:
-
-```bash
-sudo cp claude-telegram.service /etc/systemd/system/
-```
-
-```bash
-sudo systemctl daemon-reload && sudo systemctl enable --now claude-telegram
-```
-
-Xem log:
+Nhắn `/help` cho bot trên điện thoại. Xem log nếu có lỗi:
 
 ```bash
 journalctl -u claude-telegram -f
