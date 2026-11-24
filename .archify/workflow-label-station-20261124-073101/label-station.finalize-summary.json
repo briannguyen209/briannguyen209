@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/user/briannguyen209/.archify/workflow-label-station-20261124-073101/candidate.json",
+    "sha256": "2a19519176875d1cf83156fa511d89298d2cedf70a3971bbba0a7752c86f5092",
+    "bytes": 21670
+  },
+  "artifact": {
+    "path": "/home/user/briannguyen209/.archify/workflow-label-station-20261124-073101/label-station.html",
+    "sha256": "6f3c86a6f66c809bce64fa4b3830cfd76b60708eea22cbd2a25485d58640ee2a",
+    "bytes": 982986
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [
+    {
+      "code": "i18n/locale-fallback",
+      "severity": "warning",
+      "message": "meta.locale \"vi\" has no bundled catalog and no usable meta.translations; the Viewer chrome and <html lang> fall back to English.",
+      "subject": {
+        "diagramType": "workflow",
+        "path": "/meta/locale"
+      },
+      "evidence": {
+        "locale": "vi",
+        "bundledLocales": [
+          "en",
+          "zh-CN",
+          "zh-TW",
+          "es",
+          "ko",
+          "ar",
+          "ru"
+        ]
+      },
+      "supportedFixes": [
+        "Supply meta.translations for this locale.",
+        "Use a bundled locale: en, zh-CN, zh-TW, es, ko, ar, ru."
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/user/briannguyen209/.archify/workflow-label-station-20261124-073101/label-station.finalize.json",
+    "summaryReceipt": "/home/user/briannguyen209/.archify/workflow-label-station-20261124-073101/label-station.finalize-summary.json",
+    "browserCheckReceipt": "/home/user/briannguyen209/.archify/workflow-label-station-20261124-073101/label-station.browser-check.json"
+  },
+  "repositoryReferences": {
+    "status": "verified",
+    "revision": "a61f2597532557dcb876e21b5fb77b8f7be1fc65",
+    "count": 45
+  },
+  "visualReview": "not-requested",
+  "durationMs": 3109,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

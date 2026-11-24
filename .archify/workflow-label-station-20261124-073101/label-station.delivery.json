@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "92a91106-1f8d-4730-ad58-c4a457a32aca",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/home/user/briannguyen209/.archify/workflow-label-station-20261124-073101/candidate.json",
+  "output": "/home/user/briannguyen209/.archify/workflow-label-station-20261124-073101/label-station.html",
+  "specification": {
+    "sha256": "2a19519176875d1cf83156fa511d89298d2cedf70a3971bbba0a7752c86f5092",
+    "bytes": 21670
+  },
+  "artifact": {
+    "sha256": "6f3c86a6f66c809bce64fa4b3830cfd76b60708eea22cbd2a25485d58640ee2a",
+    "bytes": 982986
+  }
+}

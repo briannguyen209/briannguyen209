@@ -1,0 +1,846 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Etsy Label Station: luồng quét và in nhãn",
+    "locale": "vi",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-label-station-20261124-073101/label-station.html",
+    "repository": {
+      "url": "https://github.com/briannguyen209/etsy-label-station",
+      "provider": "github",
+      "revision": "a61f2597532557dcb876e21b5fb77b8f7be1fc65"
+    },
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "Màn hình / cửa sổ"
+        },
+        "backend": {
+          "label": "Xử lý trong app"
+        },
+        "database": {
+          "label": "File printed.json"
+        },
+        "cloud": {
+          "label": "Gọi mạng (Stallion, S3)"
+        },
+        "security": {
+          "label": "Lỗi, dừng, chặn"
+        },
+        "messagebus": {
+          "label": "Luồng nền"
+        },
+        "external": {
+          "label": "Người dùng, máy quét"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "start",
+      "label": "Khởi động (main)"
+    },
+    {
+      "id": "lookup",
+      "label": "Worker: tra cứu và quyết định"
+    },
+    {
+      "id": "print",
+      "label": "Worker: in nhãn"
+    },
+    {
+      "id": "ui",
+      "label": "Cửa sổ (luồng giao diện Tk)"
+    },
+    {
+      "id": "err",
+      "label": "Dừng ở bước tra cứu (không in)",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "ph_start",
+      "label": "Khởi động, quét",
+      "fromCol": 0,
+      "toCol": 0
+    },
+    {
+      "id": "ph_lookup",
+      "label": "Tra cứu và quyết định",
+      "fromCol": 1,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "ph_print",
+      "label": "In, kết quả",
+      "fromCol": 4,
+      "toCol": 4,
+      "variant": "emphasis"
+    },
+    {
+      "id": "ph_fail",
+      "label": "Lỗi khi in",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "security"
+    }
+  ],
+  "mainPath": [
+    "s_open",
+    "s_cfg",
+    "s_lock",
+    "s_init",
+    "u_scan",
+    "u_submit",
+    "l_api",
+    "l_count",
+    "l_dup",
+    "p_status",
+    "p_pdf",
+    "p_sumatra",
+    "p_queue",
+    "p_mark",
+    "u_done"
+  ],
+  "nodes": [
+    {
+      "id": "s_open",
+      "lane": "start",
+      "col": 0,
+      "type": "external",
+      "icon": "start",
+      "label": "Mở Label Station",
+      "sublabel": "Start Label Station.bat",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 1276,
+          "end_line": 1283,
+          "label": "main()"
+        }
+      ],
+      "yOffset": -150
+    },
+    {
+      "id": "s_cfg",
+      "lane": "start",
+      "col": 0,
+      "type": "backend",
+      "label": "Đọc config và token",
+      "sublabel": "config.json, file token",
+      "explanation": "Lần đầu chạy thì tạo config.json với giá trị mặc định. Token lấy theo thứ tự: biến STALLION_TOKEN, api_token trong config.json, rồi file Stallion API Token.txt cạnh script hoặc một thư mục phía trên.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 164,
+          "end_line": 190,
+          "label": "load_config"
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 218,
+          "end_line": 240,
+          "label": "read_token_file"
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 1284,
+          "end_line": 1291,
+          "label": "kiểm tra token"
+        }
+      ],
+      "yOffset": -50
+    },
+    {
+      "id": "s_lock",
+      "lane": "start",
+      "col": 0,
+      "type": "security",
+      "label": "Chỉ một cửa sổ",
+      "sublabel": "giữ cổng 127.0.0.1:47613",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 1297,
+          "end_line": 1306
+        }
+      ],
+      "yOffset": 50
+    },
+    {
+      "id": "s_init",
+      "lane": "start",
+      "col": 0,
+      "type": "backend",
+      "label": "Dọn PDF cũ, tạo App",
+      "sublabel": "xoá PDF quá 14 ngày",
+      "explanation": "prune_labels chỉ chạy lúc khởi động. Sau đó tạo client Stallion, WindowsPrinter, PrintedLog (printed.json) và mở cửa sổ Tk.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 1307,
+          "end_line": 1316
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 463,
+          "end_line": 473,
+          "label": "prune_labels"
+        }
+      ],
+      "yOffset": 150
+    },
+    {
+      "id": "s_exit",
+      "lane": "start",
+      "col": 1,
+      "type": "security",
+      "icon": "failure",
+      "label": "Báo lỗi và thoát",
+      "sublabel": "thiếu token, hoặc app đang chạy",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 1284,
+          "end_line": 1291
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 1303,
+          "end_line": 1306
+        }
+      ],
+      "yOffset": 0
+    },
+    {
+      "id": "s_bg",
+      "lane": "start",
+      "col": 1,
+      "type": "messagebus",
+      "label": "Luồng nền kiểm tra",
+      "sublabel": "máy in mỗi 20 s, ping Stallion 1 lần",
+      "explanation": "Cập nhật chấm trạng thái trên thanh trên cùng. Nếu lần ping đầu bị từ chối token hoặc lỗi chứng chỉ, cửa sổ hiện ngay màn hình lỗi tương ứng.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 979,
+          "end_line": 1004,
+          "label": "status_loop"
+        }
+      ],
+      "yOffset": 150
+    },
+    {
+      "id": "u_scan",
+      "lane": "ui",
+      "col": 0,
+      "type": "external",
+      "icon": "person",
+      "label": "Quét packing slip",
+      "sublabel": "Code 128, máy quét gõ phím + Enter",
+      "explanation": "Ô nhập ẩn luôn được focus. Gửi mã khi nhận Enter, hoặc khi máy quét dừng gõ đủ lâu (idle_submit_ms) và mã đủ dài.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 888,
+          "end_line": 902
+        }
+      ],
+      "yOffset": -55
+    },
+    {
+      "id": "u_submit",
+      "lane": "ui",
+      "col": 0,
+      "type": "frontend",
+      "label": "Chuẩn hoá mã, xếp job",
+      "sublabel": "bỏ #, huỷ giao dịch đang giữ",
+      "tag": "\"Looking up…\"",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 904,
+          "end_line": 924
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 244,
+          "end_line": 248,
+          "label": "norm_code"
+        }
+      ],
+      "yOffset": 55
+    },
+    {
+      "id": "u_done",
+      "lane": "ui",
+      "col": 4,
+      "type": "frontend",
+      "icon": "success",
+      "label": "Màn hình xanh: Printed",
+      "sublabel": "tên người nhận, bíp thành công",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 1030,
+          "end_line": 1043,
+          "label": "on_outcome"
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 1140,
+          "end_line": 1143
+        }
+      ]
+    },
+    {
+      "id": "l_api",
+      "lane": "lookup",
+      "col": 1,
+      "type": "cloud",
+      "label": "Tra Stallion",
+      "sublabel": "GET /shipments?status=ready",
+      "tag": "tự thử lại 1 lần",
+      "explanation": "Mỗi lần gọi thử tối đa 2 lần: HTTP 429 chờ 2 s, lỗi mạng chờ 1 s, lỗi chứng chỉ thì nhờ Windows tải root certificate rồi thử lại. 401/403 báo lỗi token ngay. JSON hỏng tính là lỗi server.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 691,
+          "end_line": 694,
+          "label": "plan_scan"
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 396,
+          "end_line": 403,
+          "label": "ready_shipments"
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 349,
+          "end_line": 394,
+          "label": "_open (retry)"
+        }
+      ]
+    },
+    {
+      "id": "l_count",
+      "lane": "lookup",
+      "col": 2,
+      "type": "backend",
+      "icon": "decision",
+      "label": "Có mấy nhãn ready?",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 695,
+          "end_line": 699
+        }
+      ]
+    },
+    {
+      "id": "l_dup",
+      "lane": "lookup",
+      "col": 3,
+      "type": "database",
+      "icon": "decision",
+      "label": "Đã in ở máy này chưa?",
+      "sublabel": "printed.json theo shipment id",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 700,
+          "end_line": 704
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 269,
+          "end_line": 272,
+          "label": "PrintedLog.when"
+        }
+      ]
+    },
+    {
+      "id": "p_status",
+      "lane": "print",
+      "col": 4,
+      "type": "backend",
+      "icon": "decision",
+      "label": "Máy in online?",
+      "sublabel": "winspool, PowerShell dự phòng",
+      "explanation": "offline hoặc missing thì không gửi job nào (tránh job nằm chờ rồi in nhầm khi cắm lại). unknown vẫn thử in.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 712,
+          "end_line": 716
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 610,
+          "end_line": 631,
+          "label": "status()"
+        }
+      ],
+      "yOffset": -230
+    },
+    {
+      "id": "p_pdf",
+      "lane": "print",
+      "col": 4,
+      "type": "cloud",
+      "label": "Lấy PDF nhãn",
+      "sublabel": "bản lưu labels\\ hoặc tải link S3",
+      "tag": "link hết hạn: xin link mới",
+      "explanation": "Có bản lưu thì dùng luôn. Không có label_url, hoặc link ký tên trả 401/403, thì gọi GET /shipments/{id} lấy link mới; nếu shipment không còn ready thì dừng (không có nhãn). Link phải là https và nội dung phải bắt đầu bằng %PDF.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 721,
+          "end_line": 726
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 433,
+          "end_line": 460,
+          "label": "fetch_pdf"
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 418,
+          "end_line": 424,
+          "label": "download_pdf"
+        }
+      ],
+      "yOffset": -115
+    },
+    {
+      "id": "p_sumatra",
+      "lane": "print",
+      "col": 4,
+      "type": "backend",
+      "label": "In bằng SumatraPDF",
+      "sublabel": "-print-to, noscale, tối đa 60 s",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 727,
+          "end_line": 732
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 633,
+          "end_line": 647,
+          "label": "print_pdf"
+        }
+      ],
+      "yOffset": 0
+    },
+    {
+      "id": "p_queue",
+      "lane": "print",
+      "col": 4,
+      "type": "backend",
+      "label": "Chờ hàng đợi trống",
+      "sublabel": "tối đa 15 s",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 733,
+          "end_line": 738
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 662,
+          "end_line": 677,
+          "label": "wait / clear queue"
+        }
+      ],
+      "yOffset": 115
+    },
+    {
+      "id": "p_mark",
+      "lane": "print",
+      "col": 4,
+      "type": "database",
+      "label": "Ghi printed.json",
+      "sublabel": "chỉ sau khi hàng đợi trống",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 739,
+          "end_line": 742
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 274,
+          "end_line": 280,
+          "label": "PrintedLog.mark"
+        }
+      ],
+      "yOffset": 230
+    },
+    {
+      "id": "e_api",
+      "lane": "err",
+      "col": 1,
+      "type": "security",
+      "icon": "failure",
+      "label": "Lỗi Stallion",
+      "sublabel": "mạng/server, token, chứng chỉ",
+      "tag": "không in, quét lại",
+      "explanation": "Worker bắt ApiError: auth hiện \"Stallion refused the token\", cert hiện \"Run Install Label Station.bat\", còn lại hiện \"Check the internet\". Mọi Exception khác cũng thành màn hình lỗi để worker không bao giờ chết. Lần ping đầu của luồng nền cũng mở màn hình này nếu token bị từ chối hoặc lỗi chứng chỉ.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 967,
+          "end_line": 975,
+          "label": "worker except"
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 1167,
+          "end_line": 1172
+        }
+      ]
+    },
+    {
+      "id": "e_nolabel",
+      "lane": "err",
+      "col": 2,
+      "type": "security",
+      "icon": "stop",
+      "label": "Không có nhãn ready",
+      "sublabel": "0 nhãn: đã ship, void, sai số?",
+      "tag": "Open Stallion / Dismiss",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 1144,
+          "end_line": 1146
+        }
+      ]
+    },
+    {
+      "id": "e_hold",
+      "lane": "err",
+      "col": 3,
+      "type": "security",
+      "icon": "waiting",
+      "label": "Dừng, chờ bấm nút",
+      "sublabel": "2+ nhãn, hoặc đã in rồi",
+      "tag": "Print all / Reprint: in ngay",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 1147,
+          "end_line": 1159
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 1046,
+          "end_line": 1061,
+          "label": "act()"
+        }
+      ],
+      "explanation": "Print all (2+ nhãn) hoặc Reprint (đã in) đưa job print vào worker, chạy lại từ bước kiểm tra máy in. Cancel về màn hình chờ."
+    },
+    {
+      "id": "e_offline",
+      "lane": "print",
+      "col": 5,
+      "type": "security",
+      "icon": "failure",
+      "label": "Máy in offline",
+      "sublabel": "hoặc chưa chọn máy in",
+      "tag": "không gửi job · Retry / Skip",
+      "explanation": "print_labels trả về kind printer trước khi gửi job. Retry: worker xoá job cũ bằng PowerShell rồi chạy lại từ bước kiểm tra máy in. Chọn máy in qua \"Printer ▾\" rồi Retry nếu chưa chọn.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 712,
+          "end_line": 716
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 1160,
+          "end_line": 1166
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 961,
+          "end_line": 966,
+          "label": "job retry"
+        }
+      ],
+      "yOffset": -230
+    },
+    {
+      "id": "e_pdf",
+      "lane": "print",
+      "col": 5,
+      "type": "security",
+      "icon": "failure",
+      "label": "Không lấy được PDF",
+      "sublabel": "hết ready, hoặc lỗi tải",
+      "tag": "màn hình không nhãn / lỗi",
+      "explanation": "NoLabel (shipment không còn ready, không có label_url) hiện màn hình \"Không có nhãn\". ApiError khi tải (mạng, link không phải https, không phải PDF) lên worker và hiện màn hình lỗi Stallion.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 722,
+          "end_line": 726
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 440,
+          "end_line": 455,
+          "label": "fetch_pdf retry"
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 967,
+          "end_line": 975,
+          "label": "worker except"
+        }
+      ],
+      "yOffset": -115
+    },
+    {
+      "id": "e_printfail",
+      "lane": "print",
+      "col": 5,
+      "type": "security",
+      "icon": "failure",
+      "label": "In lỗi hoặc kẹt",
+      "sublabel": "Sumatra lỗi/timeout, kẹt >15 s",
+      "tag": "kẹt thì xoá job · Retry / Skip",
+      "explanation": "SumatraPDF không tìm thấy, quá 60 s, hoặc exit code khác 0 thì báo lỗi. Hàng đợi không trống sau 15 s thì xoá job ngay để nó không tự in sau này. Retry xoá job cũ rồi in lại từ bước kiểm tra máy in.",
+      "sources": [
+        {
+          "path": "src/label_station.py",
+          "line": 727,
+          "end_line": 738
+        },
+        {
+          "path": "src/label_station.py",
+          "line": 673,
+          "end_line": 677,
+          "label": "clear_queue"
+        }
+      ],
+      "yOffset": 57
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "s_open",
+      "to": "s_cfg",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "s_cfg",
+      "to": "s_lock",
+      "label": "có token",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e3",
+      "from": "s_lock",
+      "to": "s_init",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e4",
+      "from": "s_cfg",
+      "to": "s_exit",
+      "label": "không có token",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "e5",
+      "from": "s_lock",
+      "to": "s_exit",
+      "label": "đã chạy",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "e6",
+      "from": "s_init",
+      "to": "s_bg",
+      "label": "chạy nền",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "e7",
+      "from": "s_init",
+      "to": "u_scan",
+      "label": "chờ quét",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e8",
+      "from": "u_scan",
+      "to": "u_submit",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e9",
+      "from": "u_submit",
+      "to": "l_api",
+      "label": "job scan",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e10",
+      "from": "l_api",
+      "to": "l_count",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e11",
+      "from": "l_count",
+      "to": "l_dup",
+      "label": "đúng 1",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e12",
+      "from": "l_dup",
+      "to": "p_status",
+      "label": "chưa in",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e13",
+      "from": "p_status",
+      "to": "p_pdf",
+      "label": "ok / unknown",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e14",
+      "from": "p_pdf",
+      "to": "p_sumatra",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e15",
+      "from": "p_sumatra",
+      "to": "p_queue",
+      "label": "exit 0",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e16",
+      "from": "p_queue",
+      "to": "p_mark",
+      "label": "trống",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e17",
+      "from": "p_mark",
+      "to": "u_done",
+      "variant": "emphasis"
+    },
+    {
+      "id": "x1",
+      "from": "l_api",
+      "to": "e_api",
+      "label": "ApiError",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x2",
+      "from": "l_count",
+      "to": "e_nolabel",
+      "label": "0",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x3",
+      "from": "l_count",
+      "to": "e_hold",
+      "label": "2+",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x4",
+      "from": "l_dup",
+      "to": "e_hold",
+      "label": "đã in",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x5",
+      "from": "p_status",
+      "to": "e_offline",
+      "label": "offline / missing",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x6",
+      "from": "p_pdf",
+      "to": "e_pdf",
+      "label": "NoLabel / ApiError",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x8",
+      "from": "p_sumatra",
+      "to": "e_printfail",
+      "label": "lỗi / timeout",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x9",
+      "from": "p_queue",
+      "to": "e_printfail",
+      "label": "kẹt",
+      "variant": "security",
+      "role": "error"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Tự thử lại (không cần bấm nút)",
+      "items": [
+        "HTTP 429: chờ 2 s, gọi lại một lần",
+        "Lỗi mạng, timeout: chờ 1 s, gọi lại một lần",
+        "Lỗi chứng chỉ: nhờ Windows tải root certificate rồi gọi lại",
+        "Link PDF hết hạn (401/403): xin link mới từ /shipments/{id}",
+        "Token bị từ chối (401/403 với API): báo lỗi ngay, không thử lại"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Quy tắc an toàn",
+      "items": [
+        "Nút Print all, Reprint, Retry đều chạy lại từ bước \"Máy in online?\"",
+        "0 hoặc 2+ nhãn, hay nhãn đã in: không bao giờ tự in, phải bấm nút",
+        "Máy in offline: không gửi job; cắm lại cũng không tự in",
+        "Chỉ ghi \"đã in\" khi hàng đợi Windows đã trống",
+        "Quét mã mới thì huỷ giao dịch đang giữ",
+        "Mọi lỗi khác trong worker đều hiện màn hình lỗi, app không dừng"
+      ]
+    }
+  ]
+}
