@@ -1,0 +1,158 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "padding": {
+    "top": 5,
+    "left": 5,
+    "right": 5,
+    "bottom": 50
+  },
+  "data": [
+    {
+      "name": "dataset"
+    },
+    {
+      "name": "leaf",
+      "source": "dataset",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum.Category + '|' + datum.SubCategory",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Category",
+          "as": "parent"
+        }
+      ]
+    },
+    {
+      "name": "cats",
+      "source": "dataset",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [
+            "Category"
+          ]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Category",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "'root'",
+          "as": "parent"
+        }
+      ]
+    },
+    {
+      "name": "rootNode",
+      "values": [
+        {
+          "id": "root",
+          "parent": null
+        }
+      ]
+    },
+    {
+      "name": "tree",
+      "source": [
+        "rootNode",
+        "cats",
+        "leaf"
+      ],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "treemap",
+          "field": "Total Sales",
+          "method": "squarify",
+          "round": true,
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "paddingInner": 2
+        }
+      ]
+    },
+    {
+      "name": "leaves",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.SubCategory"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": {
+        "data": "leaves",
+        "field": "Total Profit"
+      },
+      "range": [
+        "#e8a87c",
+        "#5b8fc7",
+        "#1f4e89"
+      ],
+      "zero": false
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "title": "Profit",
+      "orient": "bottom",
+      "direction": "horizontal",
+      "format": ",.0f",
+      "gradientLength": 200
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          },
+          "fill": {
+            "scale": "color",
+            "field": "Total Profit"
+          },
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "transform": [
+    {
+      "calculate": "datum['Total Sales'] >= datum['Total Target'] ? 'Met' : 'Missed'",
+      "as": "Status"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "SubCategory",
+      "type": "nominal",
+      "sort": "-x",
+      "title": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#c7d6e8",
+        "size": 22
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Target",
+          "type": "quantitative",
+          "title": "Sales / Target",
+          "axis": {
+            "format": "~s"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "size": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Sales__highlight",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Status",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Met",
+              "Missed"
+            ],
+            "range": [
+              "#4e79a7",
+              "#e15759"
+            ]
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.__selected__ == 'off'",
+            "value": 0.25
+          },
+          "value": 1
+        },
+        "tooltip": [
+          {
+            "field": "SubCategory"
+          },
+          {
+            "field": "Total Sales",
+            "format": ",.0f"
+          },
+          {
+            "field": "Total Target",
+            "format": ",.0f"
+          },
+          {
+            "field": "Attainment %",
+            "format": ".1%"
+          }
+        ]
+      }
+    }
+  ]
+}

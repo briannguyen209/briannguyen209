@@ -1,0 +1,226 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "NYT-style streak tiles: periods since each product last beat its target",
+  "data": {
+    "name": "dataset"
+  },
+  "background": "#f4f4f4",
+  "padding": {
+    "left": 10,
+    "right": 10,
+    "top": 6,
+    "bottom": 6
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {
+          "op": "max",
+          "field": "PeriodsAgo",
+          "as": "streakLen"
+        }
+      ],
+      "groupby": [
+        "Product"
+      ]
+    },
+    {
+      "calculate": "datum.Period + datum.Note",
+      "as": "label"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Product",
+      "type": "nominal",
+      "title": null,
+      "sort": {
+        "field": "PeriodsAgo",
+        "op": "max",
+        "order": "ascending"
+      },
+      "scale": {
+        "paddingInner": 0.1,
+        "paddingOuter": 0.02
+      },
+      "axis": {
+        "orient": "top",
+        "domain": false,
+        "ticks": false,
+        "labelAngle": 0,
+        "labelPadding": 6,
+        "labelFontSize": 12,
+        "labelColor": "#222",
+        "labelFont": "Segoe UI"
+      }
+    },
+    "y": {
+      "field": "PeriodsAgo",
+      "type": "ordinal",
+      "axis": null,
+      "scale": {
+        "paddingInner": 0.14,
+        "paddingOuter": 0
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "cornerRadius": 2
+      },
+      "encoding": {
+        "color": {
+          "field": "Result",
+          "type": "nominal",
+          "legend": null,
+          "scale": {
+            "domain": [
+              "Beat",
+              "Missed"
+            ],
+            "range": [
+              "#2f73b8",
+              "#df7a7a"
+            ]
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.__selected__ == 'off'",
+            "value": 0.3
+          },
+          "value": 1
+        },
+        "tooltip": [
+          {
+            "field": "Product"
+          },
+          {
+            "field": "Period"
+          },
+          {
+            "field": "Result"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "font": "Segoe UI"
+      },
+      "encoding": {
+        "text": {
+          "field": "label"
+        },
+        "color": {
+          "value": "white"
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.Result == 'Beat'",
+            "value": 1
+          },
+          "value": 0.85
+        },
+        "fontWeight": {
+          "condition": {
+            "test": "datum.Result == 'Beat'",
+            "value": "bold"
+          },
+          "value": "normal"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.PeriodsAgo == datum.streakLen && datum.Result == 'Beat' && datum.streakLen >= 3"
+        },
+        {
+          "window": [
+            {
+              "op": "dense_rank",
+              "as": "rk"
+            }
+          ],
+          "sort": [
+            {
+              "field": "streakLen",
+              "order": "descending"
+            }
+          ]
+        },
+        {
+          "filter": "datum.rk <= 3"
+        },
+        {
+          "calculate": "[(datum.streakLen - 1) + ' consecutive', 'missed quarters', 'for ' + datum.Product]",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "dx": -46,
+        "dy": 4,
+        "fontSize": 11,
+        "lineHeight": 13,
+        "font": "Segoe UI",
+        "color": "#222"
+      },
+      "encoding": {
+        "text": {
+          "field": "note"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "t": [
+              "The 7 Product Lines",
+              "That Finally",
+              "Beat Their Target"
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "font": "Georgia",
+        "fontSize": 30,
+        "fontWeight": "bold",
+        "fontStyle": "italic",
+        "lineHeight": 38,
+        "color": "#111"
+      },
+      "encoding": {
+        "text": {
+          "field": "t"
+        },
+        "x": {
+          "value": 0
+        },
+        "y": {
+          "value": {
+            "expr": "height * 0.55"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Segoe UI"
+  }
+}

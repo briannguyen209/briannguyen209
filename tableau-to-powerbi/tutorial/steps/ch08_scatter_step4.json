@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 110
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Sales",
+          "type": "quantitative",
+          "title": "Sales",
+          "axis": {
+            "format": "~s"
+          }
+        },
+        "y": {
+          "field": "Total Profit",
+          "type": "quantitative",
+          "title": "Profit",
+          "axis": {
+            "format": "~s"
+          }
+        },
+        "color": {
+          "field": "Category",
+          "type": "nominal"
+        },
+        "shape": {
+          "field": "Region",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#777",
+        "strokeDash": [
+          4,
+          3
+        ]
+      },
+      "transform": [
+        {
+          "regression": "Total Profit",
+          "on": "Total Sales"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "Total Sales",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "Total Profit",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#bbb"
+      },
+      "encoding": {
+        "x": {
+          "aggregate": "mean",
+          "field": "Total Sales",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#bbb"
+      },
+      "encoding": {
+        "y": {
+          "aggregate": "mean",
+          "field": "Total Profit",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "mark": {
+    "type": "rect",
+    "cornerRadius": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Product",
+      "type": "nominal",
+      "title": null,
+      "sort": {
+        "field": "PeriodsAgo",
+        "op": "max",
+        "order": "ascending"
+      },
+      "scale": {
+        "paddingInner": 0.1,
+        "paddingOuter": 0.02
+      },
+      "axis": {
+        "orient": "top",
+        "domain": false,
+        "ticks": false,
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "PeriodsAgo",
+      "type": "ordinal",
+      "axis": null,
+      "scale": {
+        "paddingInner": 0.14,
+        "paddingOuter": 0
+      }
+    },
+    "color": {
+      "field": "Result",
+      "type": "nominal",
+      "legend": null,
+      "scale": {
+        "domain": [
+          "Beat",
+          "Missed"
+        ],
+        "range": [
+          "#2f73b8",
+          "#df7a7a"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "encoding": {
+    "y": {
+      "field": "SubCategory",
+      "type": "nominal",
+      "title": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#c7d6e8",
+        "size": 22
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Target",
+          "type": "quantitative",
+          "title": "Sales / Target"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#4e79a7",
+        "size": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Sales",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "transform": [
+    {
+      "calculate": "datum.Projected == 'Yes' ? 'Projected' : (datum.Margin < 0 ? 'Below' : 'Above')",
+      "as": "Side"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": null,
+      "scale": {
+        "paddingInner": 0.06
+      },
+      "axis": {
+        "domain": false,
+        "ticks": false,
+        "labelColor": "#8a8a8a",
+        "labelFontSize": 13,
+        "labelPadding": 14,
+        "labelExpr": "datum.value % 10 == 0 || datum.value == 2026 ? datum.label : ''"
+      }
+    },
+    "x": {
+      "field": "Margin",
+      "type": "quantitative",
+      "title": null,
+      "scale": {
+        "domain": [
+          -45,
+          45
+        ]
+      },
+      "axis": {
+        "orient": "top",
+        "values": [
+          -40,
+          -30,
+          -20,
+          -10,
+          0,
+          10,
+          20,
+          30,
+          40
+        ],
+        "domain": false,
+        "ticks": false,
+        "grid": true,
+        "gridColor": "#dddddd",
+        "labelColor": "#8a8a8a",
+        "labelFontSize": 13,
+        "labelExpr": "datum.value == 0 ? 'Even' : '+' + abs(datum.value)"
+      }
+    },
+    "color": {
+      "field": "Side",
+      "type": "nominal",
+      "legend": null,
+      "scale": {
+        "domain": [
+          "Below",
+          "Above",
+          "Projected"
+        ],
+        "range": [
+          "#5394cf",
+          "#e07a7a",
+          "#9dc3e6"
+        ]
+      }
+    }
+  },
+  "background": "#f4f4f4",
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

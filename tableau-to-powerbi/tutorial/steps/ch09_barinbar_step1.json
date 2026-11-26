@@ -1,0 +1,22 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "mark": {
+    "type": "bar",
+    "color": "#c7d6e8",
+    "size": 22
+  },
+  "encoding": {
+    "y": {
+      "field": "SubCategory",
+      "type": "nominal",
+      "title": null
+    },
+    "x": {
+      "field": "Total Target",
+      "type": "quantitative"
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "transform": [
+    {
+      "calculate": "datum['Total Target'] * 0.6",
+      "as": "B60"
+    },
+    {
+      "calculate": "datum['Total Target'] * 0.8",
+      "as": "B80"
+    },
+    {
+      "calculate": "datum['Total Target'] * 1.2",
+      "as": "B120"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "Category",
+      "type": "nominal",
+      "title": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#e6e6e6",
+        "size": 30
+      },
+      "encoding": {
+        "x": {
+          "field": "B120",
+          "type": "quantitative",
+          "title": "Sales vs target",
+          "axis": {
+            "format": "~s"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#cfcfcf",
+        "size": 30
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Target",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#b5b5b5",
+        "size": 30
+      },
+      "encoding": {
+        "x": {
+          "field": "B80",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#9e9e9e",
+        "size": 30
+      },
+      "encoding": {
+        "x": {
+          "field": "B60",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#4e79a7",
+        "size": 12,
+        "opacity": 0.35
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Sales",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#4e79a7",
+        "size": 12
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Sales__highlight",
+          "type": "quantitative"
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.__selected__ == 'off'",
+            "value": 0
+          },
+          "value": 1
+        },
+        "tooltip": [
+          {
+            "field": "Category"
+          },
+          {
+            "field": "Total Sales",
+            "format": ",.0f"
+          },
+          {
+            "field": "Total Target",
+            "format": ",.0f"
+          },
+          {
+            "field": "Attainment %",
+            "format": ".1%"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "tick",
+        "color": "black",
+        "thickness": 3,
+        "size": 28
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Target",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

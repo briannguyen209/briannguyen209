@@ -1,0 +1,17 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "Year",
+      "type": "ordinal"
+    },
+    "x": {
+      "field": "Margin",
+      "type": "quantitative"
+    }
+  }
+}

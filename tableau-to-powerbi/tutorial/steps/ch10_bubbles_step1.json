@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "data": [
+    {
+      "name": "dataset"
+    },
+    {
+      "name": "tree",
+      "source": "dataset",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum.SubCategory",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "'root'",
+          "as": "parent"
+        }
+      ]
+    },
+    {
+      "name": "rootNode",
+      "values": [
+        {
+          "id": "root",
+          "parent": null
+        }
+      ]
+    },
+    {
+      "name": "nodes",
+      "source": [
+        "rootNode",
+        "tree"
+      ],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "pack",
+          "field": "Total Sales",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "padding": 4
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "shape": {
+            "value": "circle"
+          },
+          "size": {
+            "signal": "4 * datum.r * datum.r"
+          },
+          "fill": {
+            "value": "#4e79a7"
+          },
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ]
+}

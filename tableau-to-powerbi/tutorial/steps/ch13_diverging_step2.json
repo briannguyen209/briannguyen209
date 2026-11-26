@@ -1,0 +1,40 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "transform": [
+    {
+      "calculate": "datum.Projected == 'Yes' ? 'Projected' : (datum.Margin < 0 ? 'Below' : 'Above')",
+      "as": "Side"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "Year",
+      "type": "ordinal"
+    },
+    "x": {
+      "field": "Margin",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "Side",
+      "type": "nominal",
+      "legend": null,
+      "scale": {
+        "domain": [
+          "Below",
+          "Above",
+          "Projected"
+        ],
+        "range": [
+          "#5394cf",
+          "#e07a7a",
+          "#9dc3e6"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "mark": {
+    "type": "point",
+    "filled": true,
+    "size": 110
+  },
+  "encoding": {
+    "x": {
+      "field": "Total Sales",
+      "type": "quantitative",
+      "title": "Sales",
+      "axis": {
+        "format": "~s"
+      }
+    },
+    "y": {
+      "field": "Total Profit",
+      "type": "quantitative",
+      "title": "Profit",
+      "axis": {
+        "format": "~s"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal"
+    },
+    "shape": {
+      "field": "Region",
+      "type": "nominal"
+    }
+  }
+}

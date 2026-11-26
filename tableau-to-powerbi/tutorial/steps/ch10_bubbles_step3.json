@@ -1,0 +1,146 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "data": [
+    {
+      "name": "dataset"
+    },
+    {
+      "name": "tree",
+      "source": "dataset",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum.SubCategory",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "'root'",
+          "as": "parent"
+        }
+      ]
+    },
+    {
+      "name": "rootNode",
+      "values": [
+        {
+          "id": "root",
+          "parent": null
+        }
+      ]
+    },
+    {
+      "name": "nodes",
+      "source": [
+        "rootNode",
+        "tree"
+      ],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "pack",
+          "field": "Total Sales",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "padding": 4
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "dataset",
+        "field": "Category"
+      },
+      "range": {
+        "scheme": "tableau10"
+      }
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "title": "Category",
+      "orient": "top-left"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "shape": {
+            "value": "circle"
+          },
+          "size": {
+            "signal": "4 * datum.r * datum.r"
+          },
+          "fill": {
+            "scale": "color",
+            "field": "Category"
+          },
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "fill": {
+            "value": "white"
+          },
+          "text": {
+            "signal": "datum.r < 16 ? '' : datum.SubCategory"
+          },
+          "fontSize": {
+            "signal": "max(9, min(14, datum.r / 4))"
+          }
+        }
+      }
+    }
+  ]
+}

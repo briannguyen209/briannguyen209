@@ -1,0 +1,63 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "transform": [
+    {
+      "calculate": "datum['Total Sales'] >= datum['Total Target'] ? 'Met' : 'Missed'",
+      "as": "Status"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "SubCategory",
+      "type": "nominal",
+      "title": null,
+      "sort": "-x"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#c7d6e8",
+        "size": 22
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Target",
+          "type": "quantitative",
+          "title": "Sales / Target"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "size": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "Total Sales",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Status",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Met",
+              "Missed"
+            ],
+            "range": [
+              "#4e79a7",
+              "#e15759"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

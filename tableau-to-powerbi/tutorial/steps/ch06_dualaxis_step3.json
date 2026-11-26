@@ -1,0 +1,54 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "encoding": {
+    "x": {
+      "field": "YearMonth",
+      "type": "ordinal"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#4e79a7"
+      },
+      "encoding": {
+        "y": {
+          "field": "Total Sales",
+          "type": "quantitative",
+          "title": "Sales",
+          "axis": {
+            "titleColor": "#4e79a7",
+            "format": "~s"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#f28e2b"
+      },
+      "encoding": {
+        "y": {
+          "field": "Profit Ratio",
+          "type": "quantitative",
+          "title": "Profit ratio",
+          "axis": {
+            "format": ".0%",
+            "titleColor": "#f28e2b",
+            "grid": false
+          }
+        }
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "Region",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "SubCategory",
+      "type": "nominal"
+    }
+  }
+}

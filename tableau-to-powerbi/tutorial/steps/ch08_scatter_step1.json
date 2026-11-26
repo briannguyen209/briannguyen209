@@ -1,0 +1,17 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "mark": "point",
+  "encoding": {
+    "x": {
+      "field": "Total Sales",
+      "type": "quantitative"
+    },
+    "y": {
+      "field": "Total Profit",
+      "type": "quantitative"
+    }
+  }
+}

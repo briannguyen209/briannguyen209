@@ -1,0 +1,143 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {
+          "op": "max",
+          "field": "PeriodsAgo",
+          "as": "streakLen"
+        }
+      ],
+      "groupby": [
+        "Product"
+      ]
+    },
+    {
+      "calculate": "datum.Period + datum.Note",
+      "as": "label"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Product",
+      "type": "nominal",
+      "title": null,
+      "sort": {
+        "field": "PeriodsAgo",
+        "op": "max",
+        "order": "ascending"
+      },
+      "scale": {
+        "paddingInner": 0.1,
+        "paddingOuter": 0.02
+      },
+      "axis": {
+        "orient": "top",
+        "domain": false,
+        "ticks": false,
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "PeriodsAgo",
+      "type": "ordinal",
+      "axis": null,
+      "scale": {
+        "paddingInner": 0.14,
+        "paddingOuter": 0
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "cornerRadius": 2
+      },
+      "encoding": {
+        "color": {
+          "field": "Result",
+          "type": "nominal",
+          "legend": null,
+          "scale": {
+            "domain": [
+              "Beat",
+              "Missed"
+            ],
+            "range": [
+              "#2f73b8",
+              "#df7a7a"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11
+      },
+      "encoding": {
+        "text": {
+          "field": "label"
+        },
+        "color": {
+          "value": "white"
+        },
+        "fontWeight": {
+          "condition": {
+            "test": "datum.Result == 'Beat'",
+            "value": "bold"
+          },
+          "value": "normal"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.PeriodsAgo == datum.streakLen && datum.Result == 'Beat' && datum.streakLen >= 3"
+        },
+        {
+          "window": [
+            {
+              "op": "dense_rank",
+              "as": "rk"
+            }
+          ],
+          "sort": [
+            {
+              "field": "streakLen",
+              "order": "descending"
+            }
+          ]
+        },
+        {
+          "filter": "datum.rk <= 3"
+        },
+        {
+          "calculate": "[(datum.streakLen - 1) + ' consecutive', 'missed quarters', 'for ' + datum.Product]",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "dx": -46,
+        "dy": 4,
+        "fontSize": 11,
+        "lineHeight": 13
+      },
+      "encoding": {
+        "text": {
+          "field": "note"
+        }
+      }
+    }
+  ]
+}

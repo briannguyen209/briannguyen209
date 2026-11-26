@@ -1,0 +1,106 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {
+          "op": "max",
+          "field": "Total Sales",
+          "as": "maxSales"
+        }
+      ]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Region",
+      "type": "nominal",
+      "axis": {
+        "orient": "top",
+        "title": null,
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "SubCategory",
+      "type": "nominal",
+      "title": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "color": {
+          "field": "Total Sales__highlight",
+          "type": "quantitative",
+          "title": "Sales",
+          "scale": {
+            "scheme": "blues"
+          },
+          "legend": {
+            "format": "~s"
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.__selected__ == 'off'",
+            "value": 0.25
+          },
+          "value": 1
+        },
+        "tooltip": [
+          {
+            "field": "Region"
+          },
+          {
+            "field": "SubCategory"
+          },
+          {
+            "field": "Total Sales",
+            "format": ",.0f"
+          },
+          {
+            "field": "Total Sales__highlight",
+            "title": "Highlighted",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11
+      },
+      "encoding": {
+        "text": {
+          "field": "Total Sales__highlight",
+          "type": "quantitative",
+          "format": ",.0f"
+        },
+        "color": {
+          "condition": {
+            "test": "datum['Total Sales__highlight'] > datum.maxSales * 0.55",
+            "value": "white"
+          },
+          "value": "#333"
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum.__selected__ == 'off'",
+            "value": 0.25
+          },
+          "value": 1
+        }
+      }
+    }
+  ]
+}

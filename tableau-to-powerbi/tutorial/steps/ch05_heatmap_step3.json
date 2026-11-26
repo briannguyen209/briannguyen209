@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "encoding": {
+    "x": {
+      "field": "Region",
+      "type": "nominal",
+      "axis": {
+        "orient": "top",
+        "title": null,
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "SubCategory",
+      "type": "nominal",
+      "title": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "color": {
+          "field": "Total Sales",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "blues"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11
+      },
+      "encoding": {
+        "text": {
+          "field": "Total Sales",
+          "type": "quantitative",
+          "format": ",.0f"
+        }
+      }
+    }
+  ]
+}
