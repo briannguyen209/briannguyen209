@@ -1,0 +1,164 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Tableau scatter + trend line + đường trung bình (quadrant)",
+  "data": {
+    "name": "dataset"
+  },
+  "width": 480,
+  "height": 320,
+  "transform": [
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "Sales",
+          "as": "Sales"
+        },
+        {
+          "op": "sum",
+          "field": "Profit",
+          "as": "Profit"
+        }
+      ],
+      "groupby": [
+        "SubCategory",
+        "Region",
+        "Category"
+      ]
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 90,
+        "opacity": 0.8
+      },
+      "encoding": {
+        "x": {
+          "field": "Sales",
+          "type": "quantitative",
+          "title": "Doanh số"
+        },
+        "y": {
+          "field": "Profit",
+          "type": "quantitative",
+          "title": "Lợi nhuận"
+        },
+        "color": {
+          "field": "Category",
+          "type": "nominal"
+        },
+        "shape": {
+          "field": "Region",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "SubCategory"
+          },
+          {
+            "field": "Region"
+          },
+          {
+            "field": "Sales",
+            "format": ",.0f"
+          },
+          {
+            "field": "Profit",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#777",
+        "strokeDash": [
+          4,
+          3
+        ]
+      },
+      "transform": [
+        {
+          "regression": "Profit",
+          "on": "Sales"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "Sales",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "Profit",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#bbb"
+      },
+      "encoding": {
+        "x": {
+          "aggregate": "mean",
+          "field": "Sales",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#bbb"
+      },
+      "encoding": {
+        "y": {
+          "aggregate": "mean",
+          "field": "Profit",
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+  "config": {
+    "font": "Segoe UI",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#666",
+      "titleColor": "#333",
+      "gridColor": "#eee",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal"
+    },
+    "legend": {
+      "labelColor": "#555",
+      "titleColor": "#333",
+      "orient": "right"
+    },
+    "range": {
+      "category": {
+        "scheme": "tableau10"
+      },
+      "heatmap": {
+        "scheme": "blues"
+      },
+      "diverging": {
+        "scheme": "redblue"
+      }
+    },
+    "header": {
+      "labelFontSize": 12,
+      "titleFontSize": 12
+    }
+  }
+}

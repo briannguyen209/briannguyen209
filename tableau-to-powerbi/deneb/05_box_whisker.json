@@ -1,0 +1,80 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Tableau 'Box-and-Whisker': phân phối Lợi nhuận theo đơn hàng, chia theo Category",
+  "data": {
+    "name": "dataset"
+  },
+  "width": 420,
+  "height": 300,
+  "mark": {
+    "type": "boxplot",
+    "extent": 1.5,
+    "size": 40,
+    "median": {
+      "color": "white"
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "Profit",
+      "type": "quantitative",
+      "title": "Lợi nhuận / đơn",
+      "scale": {
+        "domain": [
+          -400,
+          600
+        ],
+        "clamp": true
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "legend": null
+    }
+  },
+  "config": {
+    "font": "Segoe UI",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#666",
+      "titleColor": "#333",
+      "gridColor": "#eee",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal"
+    },
+    "legend": {
+      "labelColor": "#555",
+      "titleColor": "#333",
+      "orient": "right"
+    },
+    "range": {
+      "category": {
+        "scheme": "tableau10"
+      },
+      "heatmap": {
+        "scheme": "blues"
+      },
+      "diverging": {
+        "scheme": "redblue"
+      }
+    },
+    "header": {
+      "labelFontSize": 12,
+      "titleFontSize": 12
+    }
+  }
+}

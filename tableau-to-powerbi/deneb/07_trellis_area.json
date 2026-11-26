@@ -1,0 +1,102 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Tableau small multiples (trellis): area chart doanh số theo quý, mỗi ô một Region",
+  "data": {
+    "name": "dataset"
+  },
+  "transform": [
+    {
+      "timeUnit": "yearquarter",
+      "field": "OrderDate",
+      "as": "Q"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "Sales",
+          "as": "Sales"
+        }
+      ],
+      "groupby": [
+        "Q",
+        "Region",
+        "Category"
+      ]
+    }
+  ],
+  "facet": {
+    "column": {
+      "field": "Region",
+      "type": "nominal",
+      "title": null
+    }
+  },
+  "spec": {
+    "width": 150,
+    "height": 160,
+    "mark": {
+      "type": "area",
+      "opacity": 0.85,
+      "line": true
+    },
+    "encoding": {
+      "x": {
+        "field": "Q",
+        "type": "temporal",
+        "timeUnit": "yearquarter",
+        "title": null,
+        "axis": {
+          "format": "Q%q %y",
+          "labelAngle": -45
+        }
+      },
+      "y": {
+        "field": "Sales",
+        "type": "quantitative",
+        "stack": "zero",
+        "title": "Doanh số"
+      },
+      "color": {
+        "field": "Category",
+        "type": "nominal"
+      }
+    }
+  },
+  "config": {
+    "font": "Segoe UI",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#666",
+      "titleColor": "#333",
+      "gridColor": "#eee",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal"
+    },
+    "legend": {
+      "labelColor": "#555",
+      "titleColor": "#333",
+      "orient": "right"
+    },
+    "range": {
+      "category": {
+        "scheme": "tableau10"
+      },
+      "heatmap": {
+        "scheme": "blues"
+      },
+      "diverging": {
+        "scheme": "redblue"
+      }
+    },
+    "header": {
+      "labelFontSize": 12,
+      "titleFontSize": 12
+    }
+  }
+}

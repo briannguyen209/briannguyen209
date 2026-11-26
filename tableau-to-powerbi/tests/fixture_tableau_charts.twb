@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- Workbook giả lập (cấu trúc XML giống Tableau 2024.x) để test twb_inspector.py -->
+<workbook version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <datasources>
+    <datasource caption='Superstore' name='federated.abc'>
+      <column datatype='real' name='[Sales]' role='measure' type='quantitative' />
+      <column caption='Profit Ratio' datatype='real' name='[Calculation_1]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([Profit])/SUM([Sales])' />
+      </column>
+      <column caption='Tỷ lệ đạt' datatype='real' name='[Calculation_2]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='{FIXED [Region] : SUM([Sales])} / SUM([Target])' />
+      </column>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Heatmap'><table><view /><panes><pane><mark class='Square' />
+      <encodings><color column='[federated.abc].[sum:Sales:qk]' /><text column='[federated.abc].[sum:Sales:qk]' /></encodings></pane></panes>
+      <rows>[federated.abc].[none:SubCategory:nk]</rows><cols>[federated.abc].[none:Region:nk]</cols></table></worksheet>
+    <worksheet name='Bubbles'><table><view /><panes><pane><mark class='Circle' />
+      <encodings><size column='[federated.abc].[sum:Sales:qk]' /><color column='[federated.abc].[none:Category:nk]' /></encodings></pane></panes>
+      <rows /><cols /></table></worksheet>
+    <worksheet name='Treemap'><table><view /><panes><pane><mark class='Square' />
+      <encodings><size column='[federated.abc].[sum:Sales:qk]' /><color column='[federated.abc].[usr:Calculation_1:qk]' /></encodings></pane></panes>
+      <rows /><cols /></table></worksheet>
+    <worksheet name='DualAxis'><table><view /><panes>
+      <pane id='1' y-axis-name='[federated.abc].[sum:Sales:qk]'><mark class='Bar' /></pane>
+      <pane id='2' y-axis-name='[federated.abc].[usr:Calculation_1:qk]'><mark class='Line' /></pane></panes>
+      <rows>([federated.abc].[sum:Sales:qk] + [federated.abc].[usr:Calculation_1:qk])</rows><cols>[federated.abc].[tmn:OrderDate:ok]</cols></table></worksheet>
+    <worksheet name='Scatter'><table><view /><panes><pane><mark class='Circle' />
+      <encodings><color column='[federated.abc].[none:Category:nk]' /></encodings></pane></panes>
+      <rows>[federated.abc].[sum:Profit:qk]</rows><cols>[federated.abc].[sum:Sales:qk]</cols></table></worksheet>
+    <worksheet name='BoxPlot'><table><view /><panes><pane><mark class='Circle' /></pane></panes>
+      <rows>[federated.abc].[sum:Profit:qk]</rows><cols>[federated.abc].[none:Category:nk]</cols></table>
+      <reference-line boxplot-whisker-type='standard' scope='per-cell' /></worksheet>
+  </worksheets>
+  <dashboards><dashboard name='Tổng quan' /></dashboards>
+</workbook>

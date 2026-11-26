@@ -1,0 +1,26 @@
+{
+  "visual": {
+    "name": "tableauBulletVisual",
+    "displayName": "Tableau-style Bullet Graph",
+    "guid": "tableauBulletVisual8B1B6F787D0E492D8D25AC7729E8E767",
+    "visualClassName": "Visual",
+    "version": "1.0.0.0",
+    "description": "Bullet graph kieu Tableau: dai tham chieu, thanh thuc te, vach muc tieu",
+    "supportUrl": "https://github.com/briannguyen209/briannguyen209",
+    "gitHubUrl": "https://github.com/briannguyen209/briannguyen209"
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "briannguyen209",
+    "email": "noreply@example.com"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": [],
+  "version": "1.0.0.0"
+}

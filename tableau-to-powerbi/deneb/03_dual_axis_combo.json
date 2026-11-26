@@ -1,0 +1,138 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Tableau 'Dual Axis': cột Doanh số + đường Tỷ suất lợi nhuận theo tháng",
+  "data": {
+    "name": "dataset"
+  },
+  "width": 620,
+  "height": 280,
+  "transform": [
+    {
+      "timeUnit": "yearmonth",
+      "field": "OrderDate",
+      "as": "Month"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "Sales",
+          "as": "Sales"
+        },
+        {
+          "op": "sum",
+          "field": "Profit",
+          "as": "Profit"
+        }
+      ],
+      "groupby": [
+        "Month"
+      ]
+    },
+    {
+      "calculate": "datum.Profit/datum.Sales",
+      "as": "Margin"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Month",
+      "type": "temporal",
+      "timeUnit": "yearmonth",
+      "title": null,
+      "axis": {
+        "format": "%m/%Y",
+        "labelAngle": -45
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#4e79a7",
+        "opacity": 0.85
+      },
+      "encoding": {
+        "y": {
+          "field": "Sales",
+          "type": "quantitative",
+          "title": "Doanh số",
+          "axis": {
+            "titleColor": "#4e79a7"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#f28e2b",
+        "strokeWidth": 2.5,
+        "point": {
+          "filled": true,
+          "color": "#f28e2b"
+        }
+      },
+      "encoding": {
+        "y": {
+          "field": "Margin",
+          "type": "quantitative",
+          "title": "Tỷ suất LN",
+          "axis": {
+            "format": ".0%",
+            "titleColor": "#f28e2b",
+            "grid": false
+          }
+        },
+        "x": {
+          "field": "Month",
+          "type": "temporal",
+          "timeUnit": "yearmonth",
+          "bandPosition": 0.5
+        }
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  },
+  "config": {
+    "font": "Segoe UI",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#666",
+      "titleColor": "#333",
+      "gridColor": "#eee",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal"
+    },
+    "legend": {
+      "labelColor": "#555",
+      "titleColor": "#333",
+      "orient": "right"
+    },
+    "range": {
+      "category": {
+        "scheme": "tableau10"
+      },
+      "heatmap": {
+        "scheme": "blues"
+      },
+      "diverging": {
+        "scheme": "redblue"
+      }
+    },
+    "header": {
+      "labelFontSize": 12,
+      "titleFontSize": 12
+    }
+  }
+}

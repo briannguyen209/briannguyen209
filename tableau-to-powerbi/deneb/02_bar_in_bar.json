@@ -1,0 +1,132 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Tableau 'Bar-in-Bar': Doanh số thực tế (thanh trong) vs Mục tiêu (thanh ngoài)",
+  "data": {
+    "name": "dataset"
+  },
+  "width": 460,
+  "height": 300,
+  "transform": [
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "Sales",
+          "as": "Sales"
+        },
+        {
+          "op": "sum",
+          "field": "Target",
+          "as": "Target"
+        }
+      ],
+      "groupby": [
+        "SubCategory"
+      ]
+    },
+    {
+      "calculate": "datum.Sales>=datum.Target ? 'Đạt' : 'Chưa đạt'",
+      "as": "Status"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "SubCategory",
+      "type": "nominal",
+      "sort": "-x",
+      "title": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#c7d6e8",
+        "size": 22
+      },
+      "encoding": {
+        "x": {
+          "field": "Target",
+          "type": "quantitative",
+          "title": "Doanh số / Mục tiêu"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "size": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "Sales",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Status",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Đạt",
+              "Chưa đạt"
+            ],
+            "range": [
+              "#4e79a7",
+              "#e15759"
+            ]
+          },
+          "title": null
+        },
+        "tooltip": [
+          {
+            "field": "SubCategory"
+          },
+          {
+            "field": "Sales",
+            "format": ",.0f"
+          },
+          {
+            "field": "Target",
+            "format": ",.0f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "font": "Segoe UI",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#666",
+      "titleColor": "#333",
+      "gridColor": "#eee",
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal"
+    },
+    "legend": {
+      "labelColor": "#555",
+      "titleColor": "#333",
+      "orient": "right"
+    },
+    "range": {
+      "category": {
+        "scheme": "tableau10"
+      },
+      "heatmap": {
+        "scheme": "blues"
+      },
+      "diverging": {
+        "scheme": "redblue"
+      }
+    },
+    "header": {
+      "labelFontSize": 12,
+      "titleFontSize": 12
+    }
+  }
+}

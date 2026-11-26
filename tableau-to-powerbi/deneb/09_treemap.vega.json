@@ -1,0 +1,289 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 520,
+  "height": 400,
+  "padding": {
+    "top": 5,
+    "left": 5,
+    "right": 5,
+    "bottom": 50
+  },
+  "autosize": "none",
+  "config": {
+    "text": {
+      "font": "Segoe UI"
+    },
+    "legend": {
+      "labelFont": "Segoe UI"
+    }
+  },
+  "description": "Tableau 'Treemap': Category > SubCategory, kích thước = Doanh số, màu = Lợi nhuận",
+  "data": [
+    {
+      "name": "dataset"
+    },
+    {
+      "name": "leaf",
+      "source": "dataset",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [
+            "Category",
+            "SubCategory"
+          ],
+          "fields": [
+            "Sales",
+            "Profit"
+          ],
+          "ops": [
+            "sum",
+            "sum"
+          ],
+          "as": [
+            "Sales",
+            "Profit"
+          ]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Category+'|'+datum.SubCategory",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Category",
+          "as": "parent"
+        }
+      ]
+    },
+    {
+      "name": "cats",
+      "source": "dataset",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [
+            "Category"
+          ]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Category",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "'root'",
+          "as": "parent"
+        }
+      ]
+    },
+    {
+      "name": "rootNode",
+      "values": [
+        {
+          "id": "root",
+          "parent": null
+        }
+      ]
+    },
+    {
+      "name": "tree",
+      "source": [
+        "rootNode",
+        "cats",
+        "leaf"
+      ],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "treemap",
+          "field": "Sales",
+          "sort": {
+            "field": "value"
+          },
+          "round": true,
+          "method": "squarify",
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "paddingInner": 2,
+          "paddingOuter": 0,
+          "paddingTop": 18
+        }
+      ]
+    },
+    {
+      "name": "leaves",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.SubCategory"
+        }
+      ]
+    },
+    {
+      "name": "groups",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.depth==1"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": {
+        "data": "leaves",
+        "field": "Profit"
+      },
+      "range": [
+        "#e8a87c",
+        "#5b8fc7",
+        "#1f4e89"
+      ],
+      "zero": false
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "title": "Lợi nhuận",
+      "orient": "bottom",
+      "direction": "horizontal",
+      "format": ",.0f",
+      "gradientLength": 200
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "groups"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          },
+          "fill": {
+            "value": "#f3f3f3"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "groups"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.x0+4"
+          },
+          "y": {
+            "signal": "datum.y0+13"
+          },
+          "text": {
+            "field": "Category"
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#333"
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          },
+          "fill": {
+            "scale": "color",
+            "field": "Profit"
+          },
+          "stroke": {
+            "value": "white"
+          },
+          "tooltip": {
+            "signal": "{Category:datum.Category,SubCategory:datum.SubCategory,Sales:format(datum.Sales,',.0f'),Profit:format(datum.Profit,',.0f')}"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.x0+5"
+          },
+          "y": {
+            "signal": "datum.y0+15"
+          },
+          "text": {
+            "signal": "[datum.SubCategory, format(datum.Sales,',.0f')]"
+          },
+          "fill": {
+            "value": "white"
+          },
+          "fontSize": {
+            "value": 11
+          },
+          "limit": {
+            "signal": "max(0,datum.x1-datum.x0-8)"
+          },
+          "lineHeight": {
+            "value": 14
+          }
+        }
+      }
+    }
+  ],
+  "background": "white"
+}

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 520,
+  "height": 380,
+  "padding": 5,
+  "autosize": "none",
+  "config": {
+    "text": {
+      "font": "Segoe UI"
+    },
+    "legend": {
+      "labelFont": "Segoe UI"
+    }
+  },
+  "description": "Tableau 'Packed Bubbles': kích thước = Doanh số theo SubCategory, màu = Category",
+  "data": [
+    {
+      "name": "dataset"
+    },
+    {
+      "name": "agg",
+      "source": "dataset",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [
+            "Category",
+            "SubCategory"
+          ],
+          "fields": [
+            "Sales"
+          ],
+          "ops": [
+            "sum"
+          ],
+          "as": [
+            "Sales"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tree",
+      "source": "agg",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum.SubCategory",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "'root'",
+          "as": "parent"
+        }
+      ]
+    },
+    {
+      "name": "rootNode",
+      "values": [
+        {
+          "id": "root",
+          "parent": null
+        }
+      ]
+    },
+    {
+      "name": "nodes",
+      "source": [
+        "rootNode",
+        "tree"
+      ],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "pack",
+          "field": "Sales",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "padding": 4
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "agg",
+        "field": "Category"
+      },
+      "range": {
+        "scheme": "tableau10"
+      }
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "title": "Category",
+      "orient": "top-left"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "enter": {
+          "shape": {
+            "value": "circle"
+          }
+        },
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "size": {
+            "signal": "4*datum.r*datum.r"
+          },
+          "fill": [
+            {
+              "test": "datum.id=='root'",
+              "value": "transparent"
+            },
+            {
+              "scale": "color",
+              "field": "Category"
+            }
+          ],
+          "stroke": [
+            {
+              "test": "datum.id=='rootNode'||datum.id=='root'",
+              "value": "transparent"
+            },
+            {
+              "value": "white"
+            }
+          ],
+          "tooltip": {
+            "signal": "datum.id=='root'?null:{SubCategory:datum.SubCategory,Sales:format(datum.Sales,',.0f')}"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "text": {
+            "signal": "datum.id=='root'||datum.r<16?'':datum.SubCategory"
+          },
+          "fill": {
+            "value": "white"
+          },
+          "fontSize": {
+            "signal": "max(9,min(14,datum.r/4))"
+          }
+        }
+      }
+    }
+  ],
+  "background": "white"
+}

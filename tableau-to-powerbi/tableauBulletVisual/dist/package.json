@@ -1,0 +1,17 @@
+{
+		"version": "1.0.0.0",
+		"author": {"name":"briannguyen209","email":"noreply@example.com"},
+		"resources": [
+			{
+				"resourceId": "rId0",
+				"sourceType": 5,
+				"file": "resources/tableauBulletVisual8B1B6F787D0E492D8D25AC7729E8E767.pbiviz.json"
+			}
+		],
+		"visual": {"name":"tableauBulletVisual","displayName":"Tableau-style Bullet Graph","guid":"tableauBulletVisual8B1B6F787D0E492D8D25AC7729E8E767","visualClassName":"Visual","version":"1.0.0.0","description":"Bullet graph kieu Tableau: dai tham chieu, thanh thuc te, vach muc tieu","supportUrl":"https://github.com/briannguyen209/briannguyen209","gitHubUrl":"https://github.com/briannguyen209/briannguyen209"},
+		"metadata": {
+			"pbivizjson": {
+				"resourceId": "rId0"
+			}
+		}
+	}

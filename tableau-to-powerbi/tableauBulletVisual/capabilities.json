@@ -1,0 +1,29 @@
+{
+    "dataRoles": [
+        { "displayName": "Danh mục (Category)", "name": "category", "kind": "Grouping" },
+        { "displayName": "Thực tế (Actual)", "name": "actual", "kind": "Measure" },
+        { "displayName": "Mục tiêu (Target)", "name": "target", "kind": "Measure" }
+    ],
+    "objects": {
+        "bulletSettings": {
+            "properties": {
+                "barColor": { "type": { "fill": { "solid": { "color": true } } } },
+                "targetColor": { "type": { "fill": { "solid": { "color": true } } } },
+                "showBands": { "type": { "bool": true } },
+                "showLabels": { "type": { "bool": true } }
+            }
+        }
+    },
+    "dataViewMappings": [
+        {
+            "conditions": [ { "category": { "max": 1 }, "actual": { "max": 1 }, "target": { "max": 1 } } ],
+            "categorical": {
+                "categories": { "for": { "in": "category" }, "dataReductionAlgorithm": { "top": { "count": 100 } } },
+                "values": { "select": [ { "bind": { "to": "actual" } }, { "bind": { "to": "target" } } ] }
+            }
+        }
+    ],
+    "tooltips": { "supportedTypes": { "default": true, "canvas": true }, "roles": [ "actual", "target" ] },
+    "supportsMultiVisualSelection": true,
+    "privileges": []
+}
