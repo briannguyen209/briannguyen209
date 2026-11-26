@@ -4,6 +4,10 @@ Nghiên cứu + thử nghiệm các cách **miễn phí** để hiển thị d�
 (highlight table, bar-in-bar, dual axis, bullet graph, box plot, packed bubbles, treemap, small multiples...)
 và đọc lại file Tableau có sẵn (`.twb/.twbx`) mà không cần cài Tableau.
 
+> **New / Mới:**
+> - [`powerbi-sample/`](powerbi-sample/README.md): sample Power BI report (`.pbip`) with 11 interactive Deneb charts and embedded data. Open `powerbi-sample/DenebShowcase/DenebShowcase.pbip` in Power BI Desktop.
+> - [`nyt-style/`](nyt-style/README.md): NYT-style charts in Deneb (streak tiles, diverging bars, US route map, globe).
+
 ![Tổng quan các chart Deneb](renders/00_overview_deneb.png)
 
 ## TL;DR — nên dùng gì

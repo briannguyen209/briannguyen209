@@ -1,0 +1,37 @@
+table _Measures
+	lineageTag: 44eb81a3-4082-5410-b232-d6727cdaf106
+
+	measure 'Total Sales' = SUM(Sales[Sales])
+		formatString: #,0
+		lineageTag: 1fbc1f47-450a-5331-b26d-546f210bc80a
+
+	measure 'Total Profit' = SUM(Sales[Profit])
+		formatString: #,0
+		lineageTag: 8285a321-a0e7-544d-ad9e-2ebdff2645a1
+
+	measure 'Total Target' = SUM(Sales[Target])
+		formatString: #,0
+		lineageTag: 57e2382a-1695-5d49-a33e-27437313f47f
+
+	measure 'Profit Ratio' = DIVIDE([Total Profit], [Total Sales])
+		formatString: 0.0%
+		lineageTag: 172d6e91-a70e-56bf-a72d-bd7d843f1a42
+
+	measure 'Attainment %' = DIVIDE([Total Sales], [Total Target])
+		formatString: 0.0%
+		lineageTag: 477100c5-4b3e-5b68-aa10-8f44307cecd5
+
+	measure Orders = COUNTROWS(Sales)
+		formatString: #,0
+		lineageTag: 0972747e-1bd2-54c4-9d66-d0a64ce09991
+
+	column Placeholder
+		dataType: string
+		isHidden
+		lineageTag: 7690a6b4-22cb-5431-aa83-95756e387322
+		summarizeBy: none
+		sourceColumn: [Placeholder]
+
+	partition _Measures = calculated
+		mode: import
+		source = ROW("Placeholder", "")

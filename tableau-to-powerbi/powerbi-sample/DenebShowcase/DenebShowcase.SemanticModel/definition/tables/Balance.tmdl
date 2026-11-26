@@ -1,0 +1,40 @@
+table Balance
+	lineageTag: 765857da-08ca-56f9-8f13-8063187df4da
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5599954b-de03-5a3c-96db-f78435b9dd23
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	column Margin
+		dataType: int64
+		formatString: 0
+		lineageTag: 93d3f5d8-442a-584c-89da-7ebbd4e994cc
+		summarizeBy: none
+		sourceColumn: Margin
+
+		annotation SummarizationSetBy = User
+
+	column Projected
+		dataType: string
+		lineageTag: d617848b-2609-507c-a599-9ec4e192a9d8
+		summarizeBy: none
+		sourceColumn: Projected
+
+		annotation SummarizationSetBy = User
+
+	partition Balance = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(Binary.Decompress(Binary.FromText("TdAxDsIwDAXQvWdxpNhJm+YQINaOCCIEA5UK9xef6juwPcWuv92lnTc5nLfb/SmnbX20y7tdB601SrAkx/VrlaBug41Of85woUd4pCeYLOJDZunfVdG9bjFGvoIqGkkEFjKJ17NM1CiVQtJMFizvrTOc6epHWcR8JiA/sBn5wetJXFk4F0f5sjr9WHonsriNVv9nFq1HmfoorMdOLORvuV9tSOLStt+1tNfwAQ==", BinaryEncoding.Base64), Compression.Deflate), [Delimiter=",", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"Year", Int64.Type}, {"Margin", Int64.Type}, {"Projected", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,166 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "bc91c120290c53a2b528",
+  "position": {
+    "x": 20,
+    "y": 160,
+    "z": 10,
+    "height": 330,
+    "width": 480,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales"
+                    }
+                  },
+                  "Property": "Region"
+                }
+              },
+              "queryRef": "Sales.Region",
+              "nativeQueryRef": "Region"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales"
+                    }
+                  },
+                  "Property": "SubCategory"
+                }
+              },
+              "queryRef": "Sales.SubCategory",
+              "nativeQueryRef": "SubCategory"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "_Measures.Total Sales",
+              "nativeQueryRef": "Total Sales"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vegaLite'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\n  \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\",\n  \"description\": \"Highlight table - click a cell to cross-filter; other visuals highlight it\",\n  \"data\": {\n    \"name\": \"dataset\"\n  },\n  \"transform\": [\n    {\n      \"joinaggregate\": [\n        {\n          \"op\": \"max\",\n          \"field\": \"Total Sales\",\n          \"as\": \"maxSales\"\n        }\n      ]\n    }\n  ],\n  \"encoding\": {\n    \"x\": {\n      \"field\": \"Region\",\n      \"type\": \"nominal\",\n      \"axis\": {\n        \"orient\": \"top\",\n        \"title\": null,\n        \"labelAngle\": 0\n      }\n    },\n    \"y\": {\n      \"field\": \"SubCategory\",\n      \"type\": \"nominal\",\n      \"title\": null\n    }\n  },\n  \"layer\": [\n    {\n      \"mark\": {\n        \"type\": \"rect\",\n        \"stroke\": \"white\",\n        \"strokeWidth\": 1.5\n      },\n      \"encoding\": {\n        \"color\": {\n          \"field\": \"Total Sales__highlight\",\n          \"type\": \"quantitative\",\n          \"title\": \"Sales\",\n          \"scale\": {\n            \"scheme\": \"blues\"\n          },\n          \"legend\": {\n            \"format\": \"~s\"\n          }\n        },\n        \"opacity\": {\n          \"condition\": {\n            \"test\": \"datum.__selected__ == ''off''\",\n            \"value\": 0.25\n          },\n          \"value\": 1\n        },\n        \"tooltip\": [\n          {\n            \"field\": \"Region\"\n          },\n          {\n            \"field\": \"SubCategory\"\n          },\n          {\n            \"field\": \"Total Sales\",\n            \"format\": \",.0f\"\n          },\n          {\n            \"field\": \"Total Sales__highlight\",\n            \"title\": \"Highlighted\",\n            \"format\": \",.0f\"\n          }\n        ]\n      }\n    },\n    {\n      \"mark\": {\n        \"type\": \"text\",\n        \"fontSize\": 11\n      },\n      \"encoding\": {\n        \"text\": {\n          \"field\": \"Total Sales__highlight\",\n          \"type\": \"quantitative\",\n          \"format\": \",.0f\"\n        },\n        \"color\": {\n          \"condition\": {\n            \"test\": \"datum[''Total Sales__highlight''] > datum.maxSales * 0.55\",\n            \"value\": \"white\"\n          },\n          \"value\": \"#333\"\n        },\n        \"opacity\": {\n          \"condition\": {\n            \"test\": \"datum.__selected__ == ''off''\",\n            \"value\": 0.25\n          },\n          \"value\": 1\n        }\n      }\n    }\n  ]\n}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\n  \"autosize\": {\n    \"type\": \"fit\",\n    \"contains\": \"padding\"\n  },\n  \"view\": {\n    \"stroke\": null\n  },\n  \"font\": \"Segoe UI\",\n  \"axis\": {\n    \"labelColor\": \"#666\",\n    \"titleColor\": \"#333\",\n    \"gridColor\": \"#eee\",\n    \"domainColor\": \"#ccc\",\n    \"tickColor\": \"#ccc\",\n    \"labelFontSize\": 11,\n    \"titleFontSize\": 12,\n    \"titleFontWeight\": \"normal\"\n  },\n  \"legend\": {\n    \"labelColor\": \"#555\",\n    \"titleColor\": \"#333\"\n  },\n  \"range\": {\n    \"category\": [\n      \"#4e79a7\",\n      \"#f28e2b\",\n      \"#e15759\",\n      \"#76b7b2\",\n      \"#59a14f\",\n      \"#edc948\",\n      \"#b07aa1\",\n      \"#ff9da7\",\n      \"#9c755f\",\n      \"#bab0ac\"\n    ]\n  }\n}'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableHighlight": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "selectionMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'simple'"
+                }
+              }
+            },
+            "selectionMaxDataPoints": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Highlight table: Sales by Region x Sub-category'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

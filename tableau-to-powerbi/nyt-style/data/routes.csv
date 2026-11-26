@@ -1,0 +1,421 @@
+Origin,OriginName,OriginLon,OriginLat,Dest,DestName,DestLon,DestLat,Cancelled
+ABQ,Albuquerque,-106.61,35.04,BOS,Boston,-71.01,42.37,1
+ABQ,Albuquerque,-106.61,35.04,DEN,Denver,-104.67,39.86,2
+ABQ,Albuquerque,-106.61,35.04,DTW,Detroit,-83.35,42.21,1
+ABQ,Albuquerque,-106.61,35.04,IAH,Houston,-95.34,29.98,2
+ABQ,Albuquerque,-106.61,35.04,MKE,Milwaukee,-87.9,42.95,1
+ABQ,Albuquerque,-106.61,35.04,PHX,Phoenix,-112.01,33.43,1
+ABQ,Albuquerque,-106.61,35.04,RDU,Raleigh,-78.79,35.88,1
+ABQ,Albuquerque,-106.61,35.04,SFO,San Francisco,-122.38,37.62,3
+ANC,Anchorage,-149.99,61.17,BHM,Birmingham,-86.75,33.56,1
+ANC,Anchorage,-149.99,61.17,BIL,Billings,-108.54,45.81,1
+ANC,Anchorage,-149.99,61.17,BOS,Boston,-71.01,42.37,1
+ANC,Anchorage,-149.99,61.17,CMH,Columbus,-82.89,39.99,1
+ANC,Anchorage,-149.99,61.17,LGA,LaGuardia,-73.87,40.78,1
+ANC,Anchorage,-149.99,61.17,MIA,Miami,-80.29,25.8,1
+ANC,Anchorage,-149.99,61.17,SAN,San Diego,-117.19,32.73,1
+ANC,Anchorage,-149.99,61.17,TPA,Tampa,-82.53,27.98,1
+ATL,Atlanta,-84.43,33.64,AUS,Austin,-97.67,30.19,2
+ATL,Atlanta,-84.43,33.64,BHM,Birmingham,-86.75,33.56,1
+ATL,Atlanta,-84.43,33.64,BNA,Nashville,-86.68,36.12,1
+ATL,Atlanta,-84.43,33.64,BOS,Boston,-71.01,42.37,1
+ATL,Atlanta,-84.43,33.64,CLT,Charlotte,-80.94,35.21,1
+ATL,Atlanta,-84.43,33.64,CMH,Columbus,-82.89,39.99,1
+ATL,Atlanta,-84.43,33.64,DCA,Washington,-77.04,38.85,1
+ATL,Atlanta,-84.43,33.64,DEN,Denver,-104.67,39.86,7
+ATL,Atlanta,-84.43,33.64,DFW,Dallas,-97.04,32.9,3
+ATL,Atlanta,-84.43,33.64,DSM,Des Moines,-93.66,41.53,1
+ATL,Atlanta,-84.43,33.64,DTW,Detroit,-83.35,42.21,3
+ATL,Atlanta,-84.43,33.64,ELP,El Paso,-106.38,31.81,1
+ATL,Atlanta,-84.43,33.64,FAR,Fargo,-96.82,46.92,2
+ATL,Atlanta,-84.43,33.64,GRR,Grand Rapids,-85.52,42.88,1
+ATL,Atlanta,-84.43,33.64,IAH,Houston,-95.34,29.98,4
+ATL,Atlanta,-84.43,33.64,JAX,Jacksonville,-81.69,30.49,2
+ATL,Atlanta,-84.43,33.64,LAX,Los Angeles,-118.41,33.94,5
+ATL,Atlanta,-84.43,33.64,LGA,LaGuardia,-73.87,40.78,5
+ATL,Atlanta,-84.43,33.64,MCO,Orlando,-81.31,28.43,2
+ATL,Atlanta,-84.43,33.64,MIA,Miami,-80.29,25.8,1
+ATL,Atlanta,-84.43,33.64,MKE,Milwaukee,-87.9,42.95,1
+ATL,Atlanta,-84.43,33.64,MSP,Minneapolis,-93.22,44.88,1
+ATL,Atlanta,-84.43,33.64,MSY,New Orleans,-90.26,29.99,1
+ATL,Atlanta,-84.43,33.64,OGG,Maui,-156.43,20.9,2
+ATL,Atlanta,-84.43,33.64,ORD,Chicago O'Hare,-87.9,41.98,4
+ATL,Atlanta,-84.43,33.64,PDX,Portland,-122.6,45.59,2
+ATL,Atlanta,-84.43,33.64,PHL,Philadelphia,-75.24,39.87,1
+ATL,Atlanta,-84.43,33.64,SAN,San Diego,-117.19,32.73,1
+ATL,Atlanta,-84.43,33.64,SAT,San Antonio,-98.47,29.53,2
+ATL,Atlanta,-84.43,33.64,SEA,Seattle,-122.31,47.45,5
+ATL,Atlanta,-84.43,33.64,SFO,San Francisco,-122.38,37.62,7
+ATL,Atlanta,-84.43,33.64,SMF,Sacramento,-121.59,38.7,1
+ATL,Atlanta,-84.43,33.64,STL,St. Louis,-90.37,38.75,2
+ATL,Atlanta,-84.43,33.64,TPA,Tampa,-82.53,27.98,1
+ATL,Atlanta,-84.43,33.64,TUS,Tucson,-110.94,32.12,1
+AUS,Austin,-97.67,30.19,DFW,Dallas,-97.04,32.9,1
+AUS,Austin,-97.67,30.19,DSM,Des Moines,-93.66,41.53,2
+AUS,Austin,-97.67,30.19,GEG,Spokane,-117.53,47.62,1
+AUS,Austin,-97.67,30.19,IAH,Houston,-95.34,29.98,1
+AUS,Austin,-97.67,30.19,JAX,Jacksonville,-81.69,30.49,1
+AUS,Austin,-97.67,30.19,LAX,Los Angeles,-118.41,33.94,1
+AUS,Austin,-97.67,30.19,LGA,LaGuardia,-73.87,40.78,1
+AUS,Austin,-97.67,30.19,MCO,Orlando,-81.31,28.43,1
+AUS,Austin,-97.67,30.19,MSP,Minneapolis,-93.22,44.88,1
+AUS,Austin,-97.67,30.19,SEA,Seattle,-122.31,47.45,1
+AUS,Austin,-97.67,30.19,SFO,San Francisco,-122.38,37.62,1
+AUS,Austin,-97.67,30.19,STL,St. Louis,-90.37,38.75,1
+AUS,Austin,-97.67,30.19,TPA,Tampa,-82.53,27.98,1
+AUS,Austin,-97.67,30.19,TUS,Tucson,-110.94,32.12,1
+BHM,Birmingham,-86.75,33.56,LAX,Los Angeles,-118.41,33.94,1
+BHM,Birmingham,-86.75,33.56,MCI,Kansas City,-94.71,39.3,1
+BHM,Birmingham,-86.75,33.56,MCO,Orlando,-81.31,28.43,1
+BHM,Birmingham,-86.75,33.56,MSY,New Orleans,-90.26,29.99,1
+BHM,Birmingham,-86.75,33.56,ORD,Chicago O'Hare,-87.9,41.98,1
+BHM,Birmingham,-86.75,33.56,PDX,Portland,-122.6,45.59,2
+BHM,Birmingham,-86.75,33.56,PHX,Phoenix,-112.01,33.43,1
+BHM,Birmingham,-86.75,33.56,SFO,San Francisco,-122.38,37.62,1
+BHM,Birmingham,-86.75,33.56,STL,St. Louis,-90.37,38.75,1
+BHM,Birmingham,-86.75,33.56,TUS,Tucson,-110.94,32.12,1
+BIL,Billings,-108.54,45.81,DEN,Denver,-104.67,39.86,1
+BIL,Billings,-108.54,45.81,IAH,Houston,-95.34,29.98,1
+BIL,Billings,-108.54,45.81,MIA,Miami,-80.29,25.8,1
+BIL,Billings,-108.54,45.81,MSP,Minneapolis,-93.22,44.88,1
+BIL,Billings,-108.54,45.81,ORD,Chicago O'Hare,-87.9,41.98,1
+BIL,Billings,-108.54,45.81,SAV,Savannah,-81.2,32.13,1
+BIL,Billings,-108.54,45.81,SFO,San Francisco,-122.38,37.62,2
+BNA,Nashville,-86.68,36.12,BOI,Boise,-116.22,43.56,1
+BNA,Nashville,-86.68,36.12,CLT,Charlotte,-80.94,35.21,1
+BNA,Nashville,-86.68,36.12,DCA,Washington,-77.04,38.85,1
+BNA,Nashville,-86.68,36.12,ELP,El Paso,-106.38,31.81,1
+BNA,Nashville,-86.68,36.12,GRR,Grand Rapids,-85.52,42.88,1
+BNA,Nashville,-86.68,36.12,HNL,Honolulu,-157.92,21.32,1
+BNA,Nashville,-86.68,36.12,LAS,Las Vegas,-115.15,36.08,1
+BNA,Nashville,-86.68,36.12,LGA,LaGuardia,-73.87,40.78,2
+BNA,Nashville,-86.68,36.12,MCI,Kansas City,-94.71,39.3,1
+BNA,Nashville,-86.68,36.12,MCO,Orlando,-81.31,28.43,2
+BNA,Nashville,-86.68,36.12,MIA,Miami,-80.29,25.8,1
+BNA,Nashville,-86.68,36.12,SAN,San Diego,-117.19,32.73,1
+BNA,Nashville,-86.68,36.12,SEA,Seattle,-122.31,47.45,1
+BNA,Nashville,-86.68,36.12,SFO,San Francisco,-122.38,37.62,1
+BOI,Boise,-116.22,43.56,MCO,Orlando,-81.31,28.43,1
+BOI,Boise,-116.22,43.56,SEA,Seattle,-122.31,47.45,2
+BOS,Boston,-71.01,42.37,CLT,Charlotte,-80.94,35.21,1
+BOS,Boston,-71.01,42.37,DEN,Denver,-104.67,39.86,3
+BOS,Boston,-71.01,42.37,DSM,Des Moines,-93.66,41.53,1
+BOS,Boston,-71.01,42.37,DTW,Detroit,-83.35,42.21,1
+BOS,Boston,-71.01,42.37,IAH,Houston,-95.34,29.98,1
+BOS,Boston,-71.01,42.37,JAC,Jackson Hole,-110.74,43.61,1
+BOS,Boston,-71.01,42.37,LAS,Las Vegas,-115.15,36.08,1
+BOS,Boston,-71.01,42.37,LAX,Los Angeles,-118.41,33.94,1
+BOS,Boston,-71.01,42.37,LGA,LaGuardia,-73.87,40.78,1
+BOS,Boston,-71.01,42.37,MSP,Minneapolis,-93.22,44.88,3
+BOS,Boston,-71.01,42.37,OGG,Maui,-156.43,20.9,1
+BOS,Boston,-71.01,42.37,ORD,Chicago O'Hare,-87.9,41.98,1
+BOS,Boston,-71.01,42.37,PIT,Pittsburgh,-80.23,40.49,1
+BOS,Boston,-71.01,42.37,PWM,Portland ME,-70.31,43.65,1
+BOS,Boston,-71.01,42.37,RAP,Rapid City,-103.06,44.05,1
+BOS,Boston,-71.01,42.37,RIC,Richmond,-77.32,37.51,2
+BOS,Boston,-71.01,42.37,SAN,San Diego,-117.19,32.73,1
+BOS,Boston,-71.01,42.37,SEA,Seattle,-122.31,47.45,2
+BOS,Boston,-71.01,42.37,SLC,Salt Lake City,-111.98,40.79,1
+BOS,Boston,-71.01,42.37,SMF,Sacramento,-121.59,38.7,1
+BTV,Burlington,-73.15,44.47,HNL,Honolulu,-157.92,21.32,1
+BTV,Burlington,-73.15,44.47,LGA,LaGuardia,-73.87,40.78,1
+BTV,Burlington,-73.15,44.47,MKE,Milwaukee,-87.9,42.95,1
+BTV,Burlington,-73.15,44.47,ORD,Chicago O'Hare,-87.9,41.98,2
+BTV,Burlington,-73.15,44.47,PHX,Phoenix,-112.01,33.43,1
+BTV,Burlington,-73.15,44.47,SFO,San Francisco,-122.38,37.62,2
+BUF,Buffalo,-78.73,42.94,DFW,Dallas,-97.04,32.9,1
+BUF,Buffalo,-78.73,42.94,IAH,Houston,-95.34,29.98,1
+BUF,Buffalo,-78.73,42.94,MKE,Milwaukee,-87.9,42.95,1
+BUF,Buffalo,-78.73,42.94,PDX,Portland,-122.6,45.59,1
+BUF,Buffalo,-78.73,42.94,PHX,Phoenix,-112.01,33.43,1
+BUF,Buffalo,-78.73,42.94,SEA,Seattle,-122.31,47.45,1
+CLT,Charlotte,-80.94,35.21,CMH,Columbus,-82.89,39.99,1
+CLT,Charlotte,-80.94,35.21,DEN,Denver,-104.67,39.86,2
+CLT,Charlotte,-80.94,35.21,DFW,Dallas,-97.04,32.9,2
+CLT,Charlotte,-80.94,35.21,DTW,Detroit,-83.35,42.21,2
+CLT,Charlotte,-80.94,35.21,LAX,Los Angeles,-118.41,33.94,2
+CLT,Charlotte,-80.94,35.21,LGA,LaGuardia,-73.87,40.78,2
+CLT,Charlotte,-80.94,35.21,MIA,Miami,-80.29,25.8,2
+CLT,Charlotte,-80.94,35.21,OKC,Oklahoma City,-97.6,35.39,1
+CLT,Charlotte,-80.94,35.21,ORD,Chicago O'Hare,-87.9,41.98,2
+CLT,Charlotte,-80.94,35.21,PDX,Portland,-122.6,45.59,1
+CLT,Charlotte,-80.94,35.21,PHX,Phoenix,-112.01,33.43,1
+CLT,Charlotte,-80.94,35.21,RIC,Richmond,-77.32,37.51,2
+CLT,Charlotte,-80.94,35.21,SEA,Seattle,-122.31,47.45,2
+CLT,Charlotte,-80.94,35.21,SFO,San Francisco,-122.38,37.62,2
+CLT,Charlotte,-80.94,35.21,STL,St. Louis,-90.37,38.75,1
+CMH,Columbus,-82.89,39.99,LAX,Los Angeles,-118.41,33.94,1
+CMH,Columbus,-82.89,39.99,LGA,LaGuardia,-73.87,40.78,1
+CMH,Columbus,-82.89,39.99,PHX,Phoenix,-112.01,33.43,1
+CMH,Columbus,-82.89,39.99,SAV,Savannah,-81.2,32.13,1
+CMH,Columbus,-82.89,39.99,SFO,San Francisco,-122.38,37.62,1
+DCA,Washington,-77.04,38.85,DEN,Denver,-104.67,39.86,4
+DCA,Washington,-77.04,38.85,DFW,Dallas,-97.04,32.9,1
+DCA,Washington,-77.04,38.85,DTW,Detroit,-83.35,42.21,1
+DCA,Washington,-77.04,38.85,HNL,Honolulu,-157.92,21.32,1
+DCA,Washington,-77.04,38.85,IAH,Houston,-95.34,29.98,3
+DCA,Washington,-77.04,38.85,IND,Indianapolis,-86.29,39.72,1
+DCA,Washington,-77.04,38.85,JAC,Jackson Hole,-110.74,43.61,1
+DCA,Washington,-77.04,38.85,JAX,Jacksonville,-81.69,30.49,1
+DCA,Washington,-77.04,38.85,ORD,Chicago O'Hare,-87.9,41.98,3
+DCA,Washington,-77.04,38.85,PDX,Portland,-122.6,45.59,2
+DCA,Washington,-77.04,38.85,PHX,Phoenix,-112.01,33.43,1
+DCA,Washington,-77.04,38.85,RDU,Raleigh,-78.79,35.88,1
+DCA,Washington,-77.04,38.85,SEA,Seattle,-122.31,47.45,1
+DCA,Washington,-77.04,38.85,SFO,San Francisco,-122.38,37.62,1
+DCA,Washington,-77.04,38.85,TUS,Tucson,-110.94,32.12,1
+DEN,Denver,-104.67,39.86,DFW,Dallas,-97.04,32.9,1
+DEN,Denver,-104.67,39.86,DTW,Detroit,-83.35,42.21,2
+DEN,Denver,-104.67,39.86,HNL,Honolulu,-157.92,21.32,1
+DEN,Denver,-104.67,39.86,IAH,Houston,-95.34,29.98,5
+DEN,Denver,-104.67,39.86,IND,Indianapolis,-86.29,39.72,1
+DEN,Denver,-104.67,39.86,JAX,Jacksonville,-81.69,30.49,1
+DEN,Denver,-104.67,39.86,LAX,Los Angeles,-118.41,33.94,2
+DEN,Denver,-104.67,39.86,LGA,LaGuardia,-73.87,40.78,6
+DEN,Denver,-104.67,39.86,MCO,Orlando,-81.31,28.43,3
+DEN,Denver,-104.67,39.86,MEM,Memphis,-89.98,35.04,1
+DEN,Denver,-104.67,39.86,MKE,Milwaukee,-87.9,42.95,3
+DEN,Denver,-104.67,39.86,MSP,Minneapolis,-93.22,44.88,3
+DEN,Denver,-104.67,39.86,OGG,Maui,-156.43,20.9,4
+DEN,Denver,-104.67,39.86,ORD,Chicago O'Hare,-87.9,41.98,9
+DEN,Denver,-104.67,39.86,PHL,Philadelphia,-75.24,39.87,3
+DEN,Denver,-104.67,39.86,PHX,Phoenix,-112.01,33.43,2
+DEN,Denver,-104.67,39.86,PIT,Pittsburgh,-80.23,40.49,1
+DEN,Denver,-104.67,39.86,RDU,Raleigh,-78.79,35.88,1
+DEN,Denver,-104.67,39.86,SAN,San Diego,-117.19,32.73,1
+DEN,Denver,-104.67,39.86,SAV,Savannah,-81.2,32.13,1
+DEN,Denver,-104.67,39.86,SEA,Seattle,-122.31,47.45,4
+DEN,Denver,-104.67,39.86,SFO,San Francisco,-122.38,37.62,4
+DEN,Denver,-104.67,39.86,SLC,Salt Lake City,-111.98,40.79,1
+DEN,Denver,-104.67,39.86,SMF,Sacramento,-121.59,38.7,1
+DEN,Denver,-104.67,39.86,TPA,Tampa,-82.53,27.98,1
+DEN,Denver,-104.67,39.86,TUS,Tucson,-110.94,32.12,1
+DFW,Dallas,-97.04,32.9,HNL,Honolulu,-157.92,21.32,1
+DFW,Dallas,-97.04,32.9,IAH,Houston,-95.34,29.98,2
+DFW,Dallas,-97.04,32.9,JAC,Jackson Hole,-110.74,43.61,1
+DFW,Dallas,-97.04,32.9,LAX,Los Angeles,-118.41,33.94,1
+DFW,Dallas,-97.04,32.9,LGA,LaGuardia,-73.87,40.78,3
+DFW,Dallas,-97.04,32.9,MCI,Kansas City,-94.71,39.3,1
+DFW,Dallas,-97.04,32.9,OGG,Maui,-156.43,20.9,1
+DFW,Dallas,-97.04,32.9,ORD,Chicago O'Hare,-87.9,41.98,3
+DFW,Dallas,-97.04,32.9,PDX,Portland,-122.6,45.59,1
+DFW,Dallas,-97.04,32.9,PHL,Philadelphia,-75.24,39.87,2
+DFW,Dallas,-97.04,32.9,PIT,Pittsburgh,-80.23,40.49,1
+DFW,Dallas,-97.04,32.9,RDU,Raleigh,-78.79,35.88,1
+DFW,Dallas,-97.04,32.9,RIC,Richmond,-77.32,37.51,1
+DFW,Dallas,-97.04,32.9,SAN,San Diego,-117.19,32.73,1
+DFW,Dallas,-97.04,32.9,SFO,San Francisco,-122.38,37.62,2
+DSM,Des Moines,-93.66,41.53,DTW,Detroit,-83.35,42.21,1
+DSM,Des Moines,-93.66,41.53,OGG,Maui,-156.43,20.9,1
+DSM,Des Moines,-93.66,41.53,SMF,Sacramento,-121.59,38.7,1
+DSM,Des Moines,-93.66,41.53,TPA,Tampa,-82.53,27.98,1
+DTW,Detroit,-83.35,42.21,ELP,El Paso,-106.38,31.81,1
+DTW,Detroit,-83.35,42.21,GEG,Spokane,-117.53,47.62,1
+DTW,Detroit,-83.35,42.21,HNL,Honolulu,-157.92,21.32,1
+DTW,Detroit,-83.35,42.21,IAH,Houston,-95.34,29.98,1
+DTW,Detroit,-83.35,42.21,LAS,Las Vegas,-115.15,36.08,1
+DTW,Detroit,-83.35,42.21,LAX,Los Angeles,-118.41,33.94,2
+DTW,Detroit,-83.35,42.21,LGA,LaGuardia,-73.87,40.78,1
+DTW,Detroit,-83.35,42.21,MIA,Miami,-80.29,25.8,1
+DTW,Detroit,-83.35,42.21,MKE,Milwaukee,-87.9,42.95,1
+DTW,Detroit,-83.35,42.21,OKC,Oklahoma City,-97.6,35.39,1
+DTW,Detroit,-83.35,42.21,ORD,Chicago O'Hare,-87.9,41.98,2
+DTW,Detroit,-83.35,42.21,PHX,Phoenix,-112.01,33.43,1
+DTW,Detroit,-83.35,42.21,RAP,Rapid City,-103.06,44.05,1
+DTW,Detroit,-83.35,42.21,RIC,Richmond,-77.32,37.51,1
+DTW,Detroit,-83.35,42.21,SAN,San Diego,-117.19,32.73,1
+DTW,Detroit,-83.35,42.21,SAT,San Antonio,-98.47,29.53,1
+DTW,Detroit,-83.35,42.21,SEA,Seattle,-122.31,47.45,1
+DTW,Detroit,-83.35,42.21,SFO,San Francisco,-122.38,37.62,1
+DTW,Detroit,-83.35,42.21,SMF,Sacramento,-121.59,38.7,1
+DTW,Detroit,-83.35,42.21,STL,St. Louis,-90.37,38.75,1
+DTW,Detroit,-83.35,42.21,TPA,Tampa,-82.53,27.98,1
+ELP,El Paso,-106.38,31.81,IAH,Houston,-95.34,29.98,2
+ELP,El Paso,-106.38,31.81,MEM,Memphis,-89.98,35.04,1
+ELP,El Paso,-106.38,31.81,MIA,Miami,-80.29,25.8,1
+ELP,El Paso,-106.38,31.81,RIC,Richmond,-77.32,37.51,1
+FAR,Fargo,-96.82,46.92,HNL,Honolulu,-157.92,21.32,1
+FAR,Fargo,-96.82,46.92,JAC,Jackson Hole,-110.74,43.61,1
+FAR,Fargo,-96.82,46.92,ORD,Chicago O'Hare,-87.9,41.98,3
+FAR,Fargo,-96.82,46.92,PDX,Portland,-122.6,45.59,1
+FAR,Fargo,-96.82,46.92,PHL,Philadelphia,-75.24,39.87,1
+FAR,Fargo,-96.82,46.92,SFO,San Francisco,-122.38,37.62,1
+GEG,Spokane,-117.53,47.62,MSP,Minneapolis,-93.22,44.88,1
+GEG,Spokane,-117.53,47.62,RIC,Richmond,-77.32,37.51,1
+GEG,Spokane,-117.53,47.62,SFO,San Francisco,-122.38,37.62,2
+GRR,Grand Rapids,-85.52,42.88,IAH,Houston,-95.34,29.98,3
+GRR,Grand Rapids,-85.52,42.88,PHX,Phoenix,-112.01,33.43,1
+GRR,Grand Rapids,-85.52,42.88,SEA,Seattle,-122.31,47.45,2
+HNL,Honolulu,-157.92,21.32,IAH,Houston,-95.34,29.98,2
+HNL,Honolulu,-157.92,21.32,LGA,LaGuardia,-73.87,40.78,1
+HNL,Honolulu,-157.92,21.32,OKC,Oklahoma City,-97.6,35.39,1
+HNL,Honolulu,-157.92,21.32,ORD,Chicago O'Hare,-87.9,41.98,3
+HNL,Honolulu,-157.92,21.32,PHX,Phoenix,-112.01,33.43,2
+HNL,Honolulu,-157.92,21.32,PIT,Pittsburgh,-80.23,40.49,1
+HNL,Honolulu,-157.92,21.32,RAP,Rapid City,-103.06,44.05,1
+HNL,Honolulu,-157.92,21.32,RDU,Raleigh,-78.79,35.88,1
+HNL,Honolulu,-157.92,21.32,RIC,Richmond,-77.32,37.51,1
+HNL,Honolulu,-157.92,21.32,SLC,Salt Lake City,-111.98,40.79,1
+HNL,Honolulu,-157.92,21.32,STL,St. Louis,-90.37,38.75,1
+IAH,Houston,-95.34,29.98,IND,Indianapolis,-86.29,39.72,1
+IAH,Houston,-95.34,29.98,LAS,Las Vegas,-115.15,36.08,1
+IAH,Houston,-95.34,29.98,LAX,Los Angeles,-118.41,33.94,1
+IAH,Houston,-95.34,29.98,LGA,LaGuardia,-73.87,40.78,3
+IAH,Houston,-95.34,29.98,MCI,Kansas City,-94.71,39.3,1
+IAH,Houston,-95.34,29.98,MKE,Milwaukee,-87.9,42.95,1
+IAH,Houston,-95.34,29.98,OMA,Omaha,-95.89,41.3,1
+IAH,Houston,-95.34,29.98,ORD,Chicago O'Hare,-87.9,41.98,4
+IAH,Houston,-95.34,29.98,PHL,Philadelphia,-75.24,39.87,2
+IAH,Houston,-95.34,29.98,PHX,Phoenix,-112.01,33.43,1
+IAH,Houston,-95.34,29.98,PIT,Pittsburgh,-80.23,40.49,1
+IAH,Houston,-95.34,29.98,SAN,San Diego,-117.19,32.73,3
+IAH,Houston,-95.34,29.98,SAT,San Antonio,-98.47,29.53,1
+IAH,Houston,-95.34,29.98,SAV,Savannah,-81.2,32.13,1
+IAH,Houston,-95.34,29.98,SEA,Seattle,-122.31,47.45,3
+IAH,Houston,-95.34,29.98,SFO,San Francisco,-122.38,37.62,6
+IAH,Houston,-95.34,29.98,SLC,Salt Lake City,-111.98,40.79,1
+IAH,Houston,-95.34,29.98,SMF,Sacramento,-121.59,38.7,1
+IAH,Houston,-95.34,29.98,STL,St. Louis,-90.37,38.75,1
+IND,Indianapolis,-86.29,39.72,LAS,Las Vegas,-115.15,36.08,1
+IND,Indianapolis,-86.29,39.72,LAX,Los Angeles,-118.41,33.94,1
+IND,Indianapolis,-86.29,39.72,LGA,LaGuardia,-73.87,40.78,1
+IND,Indianapolis,-86.29,39.72,MCO,Orlando,-81.31,28.43,1
+IND,Indianapolis,-86.29,39.72,MSY,New Orleans,-90.26,29.99,1
+IND,Indianapolis,-86.29,39.72,PHX,Phoenix,-112.01,33.43,1
+IND,Indianapolis,-86.29,39.72,SEA,Seattle,-122.31,47.45,3
+IND,Indianapolis,-86.29,39.72,SFO,San Francisco,-122.38,37.62,1
+IND,Indianapolis,-86.29,39.72,STL,St. Louis,-90.37,38.75,1
+IND,Indianapolis,-86.29,39.72,TUS,Tucson,-110.94,32.12,1
+JAC,Jackson Hole,-110.74,43.61,LIT,Little Rock,-92.22,34.73,1
+JAC,Jackson Hole,-110.74,43.61,PDX,Portland,-122.6,45.59,1
+JAC,Jackson Hole,-110.74,43.61,PHX,Phoenix,-112.01,33.43,2
+JAX,Jacksonville,-81.69,30.49,MCI,Kansas City,-94.71,39.3,1
+JAX,Jacksonville,-81.69,30.49,OGG,Maui,-156.43,20.9,1
+JAX,Jacksonville,-81.69,30.49,OKC,Oklahoma City,-97.6,35.39,1
+JAX,Jacksonville,-81.69,30.49,ORD,Chicago O'Hare,-87.9,41.98,1
+JAX,Jacksonville,-81.69,30.49,PHX,Phoenix,-112.01,33.43,1
+JAX,Jacksonville,-81.69,30.49,PWM,Portland ME,-70.31,43.65,1
+JAX,Jacksonville,-81.69,30.49,SAV,Savannah,-81.2,32.13,1
+LAS,Las Vegas,-115.15,36.08,LGA,LaGuardia,-73.87,40.78,1
+LAS,Las Vegas,-115.15,36.08,MSP,Minneapolis,-93.22,44.88,1
+LAS,Las Vegas,-115.15,36.08,ORD,Chicago O'Hare,-87.9,41.98,2
+LAS,Las Vegas,-115.15,36.08,SLC,Salt Lake City,-111.98,40.79,2
+LAX,Los Angeles,-118.41,33.94,LIT,Little Rock,-92.22,34.73,1
+LAX,Los Angeles,-118.41,33.94,MSY,New Orleans,-90.26,29.99,1
+LAX,Los Angeles,-118.41,33.94,ORD,Chicago O'Hare,-87.9,41.98,3
+LAX,Los Angeles,-118.41,33.94,PHL,Philadelphia,-75.24,39.87,1
+LAX,Los Angeles,-118.41,33.94,RIC,Richmond,-77.32,37.51,1
+LAX,Los Angeles,-118.41,33.94,SAN,San Diego,-117.19,32.73,1
+LAX,Los Angeles,-118.41,33.94,SEA,Seattle,-122.31,47.45,1
+LAX,Los Angeles,-118.41,33.94,SFO,San Francisco,-122.38,37.62,3
+LAX,Los Angeles,-118.41,33.94,SLC,Salt Lake City,-111.98,40.79,1
+LAX,Los Angeles,-118.41,33.94,SMF,Sacramento,-121.59,38.7,2
+LAX,Los Angeles,-118.41,33.94,STL,St. Louis,-90.37,38.75,1
+LAX,Los Angeles,-118.41,33.94,TPA,Tampa,-82.53,27.98,1
+LGA,LaGuardia,-73.87,40.78,MCO,Orlando,-81.31,28.43,2
+LGA,LaGuardia,-73.87,40.78,MEM,Memphis,-89.98,35.04,1
+LGA,LaGuardia,-73.87,40.78,MIA,Miami,-80.29,25.8,2
+LGA,LaGuardia,-73.87,40.78,MSY,New Orleans,-90.26,29.99,1
+LGA,LaGuardia,-73.87,40.78,OGG,Maui,-156.43,20.9,1
+LGA,LaGuardia,-73.87,40.78,ORD,Chicago O'Hare,-87.9,41.98,4
+LGA,LaGuardia,-73.87,40.78,PHL,Philadelphia,-75.24,39.87,1
+LGA,LaGuardia,-73.87,40.78,RAP,Rapid City,-103.06,44.05,2
+LGA,LaGuardia,-73.87,40.78,RIC,Richmond,-77.32,37.51,1
+LGA,LaGuardia,-73.87,40.78,SAN,San Diego,-117.19,32.73,1
+LGA,LaGuardia,-73.87,40.78,SAT,San Antonio,-98.47,29.53,1
+LGA,LaGuardia,-73.87,40.78,SEA,Seattle,-122.31,47.45,2
+LGA,LaGuardia,-73.87,40.78,SFO,San Francisco,-122.38,37.62,1
+LGA,LaGuardia,-73.87,40.78,SLC,Salt Lake City,-111.98,40.79,1
+LGA,LaGuardia,-73.87,40.78,TUS,Tucson,-110.94,32.12,1
+LIT,Little Rock,-92.22,34.73,MSP,Minneapolis,-93.22,44.88,1
+LIT,Little Rock,-92.22,34.73,OKC,Oklahoma City,-97.6,35.39,1
+LIT,Little Rock,-92.22,34.73,ORD,Chicago O'Hare,-87.9,41.98,1
+LIT,Little Rock,-92.22,34.73,SFO,San Francisco,-122.38,37.62,1
+LIT,Little Rock,-92.22,34.73,SLC,Salt Lake City,-111.98,40.79,1
+MCI,Kansas City,-94.71,39.3,OKC,Oklahoma City,-97.6,35.39,1
+MCI,Kansas City,-94.71,39.3,ORD,Chicago O'Hare,-87.9,41.98,2
+MCI,Kansas City,-94.71,39.3,PDX,Portland,-122.6,45.59,1
+MCI,Kansas City,-94.71,39.3,PHL,Philadelphia,-75.24,39.87,1
+MCI,Kansas City,-94.71,39.3,SEA,Seattle,-122.31,47.45,1
+MCI,Kansas City,-94.71,39.3,SFO,San Francisco,-122.38,37.62,2
+MCO,Orlando,-81.31,28.43,MSP,Minneapolis,-93.22,44.88,1
+MCO,Orlando,-81.31,28.43,OMA,Omaha,-95.89,41.3,1
+MCO,Orlando,-81.31,28.43,PDX,Portland,-122.6,45.59,1
+MCO,Orlando,-81.31,28.43,PHX,Phoenix,-112.01,33.43,1
+MCO,Orlando,-81.31,28.43,SFO,San Francisco,-122.38,37.62,1
+MEM,Memphis,-89.98,35.04,MIA,Miami,-80.29,25.8,1
+MEM,Memphis,-89.98,35.04,ORD,Chicago O'Hare,-87.9,41.98,1
+MEM,Memphis,-89.98,35.04,PHX,Phoenix,-112.01,33.43,1
+MEM,Memphis,-89.98,35.04,SFO,San Francisco,-122.38,37.62,1
+MIA,Miami,-80.29,25.8,RDU,Raleigh,-78.79,35.88,1
+MIA,Miami,-80.29,25.8,RIC,Richmond,-77.32,37.51,1
+MIA,Miami,-80.29,25.8,SEA,Seattle,-122.31,47.45,3
+MIA,Miami,-80.29,25.8,SFO,San Francisco,-122.38,37.62,4
+MIA,Miami,-80.29,25.8,SLC,Salt Lake City,-111.98,40.79,1
+MKE,Milwaukee,-87.9,42.95,MSP,Minneapolis,-93.22,44.88,1
+MKE,Milwaukee,-87.9,42.95,ORD,Chicago O'Hare,-87.9,41.98,1
+MKE,Milwaukee,-87.9,42.95,PHL,Philadelphia,-75.24,39.87,1
+MKE,Milwaukee,-87.9,42.95,TPA,Tampa,-82.53,27.98,1
+MSP,Minneapolis,-93.22,44.88,MSY,New Orleans,-90.26,29.99,1
+MSP,Minneapolis,-93.22,44.88,OGG,Maui,-156.43,20.9,1
+MSP,Minneapolis,-93.22,44.88,ORD,Chicago O'Hare,-87.9,41.98,3
+MSP,Minneapolis,-93.22,44.88,RAP,Rapid City,-103.06,44.05,1
+MSP,Minneapolis,-93.22,44.88,RIC,Richmond,-77.32,37.51,1
+MSP,Minneapolis,-93.22,44.88,SAV,Savannah,-81.2,32.13,1
+MSP,Minneapolis,-93.22,44.88,SFO,San Francisco,-122.38,37.62,1
+MSP,Minneapolis,-93.22,44.88,SLC,Salt Lake City,-111.98,40.79,1
+MSY,New Orleans,-90.26,29.99,OKC,Oklahoma City,-97.6,35.39,1
+MSY,New Orleans,-90.26,29.99,PIT,Pittsburgh,-80.23,40.49,1
+MSY,New Orleans,-90.26,29.99,SAN,San Diego,-117.19,32.73,1
+MSY,New Orleans,-90.26,29.99,SEA,Seattle,-122.31,47.45,1
+MSY,New Orleans,-90.26,29.99,SFO,San Francisco,-122.38,37.62,2
+MSY,New Orleans,-90.26,29.99,STL,St. Louis,-90.37,38.75,1
+OGG,Maui,-156.43,20.9,ORD,Chicago O'Hare,-87.9,41.98,1
+OKC,Oklahoma City,-97.6,35.39,PIT,Pittsburgh,-80.23,40.49,1
+OKC,Oklahoma City,-97.6,35.39,SAV,Savannah,-81.2,32.13,1
+OKC,Oklahoma City,-97.6,35.39,SFO,San Francisco,-122.38,37.62,1
+OKC,Oklahoma City,-97.6,35.39,TPA,Tampa,-82.53,27.98,1
+OMA,Omaha,-95.89,41.3,RDU,Raleigh,-78.79,35.88,1
+OMA,Omaha,-95.89,41.3,SEA,Seattle,-122.31,47.45,2
+ORD,Chicago O'Hare,-87.9,41.98,PDX,Portland,-122.6,45.59,1
+ORD,Chicago O'Hare,-87.9,41.98,PHL,Philadelphia,-75.24,39.87,1
+ORD,Chicago O'Hare,-87.9,41.98,PIT,Pittsburgh,-80.23,40.49,2
+ORD,Chicago O'Hare,-87.9,41.98,PWM,Portland ME,-70.31,43.65,1
+ORD,Chicago O'Hare,-87.9,41.98,SAN,San Diego,-117.19,32.73,1
+ORD,Chicago O'Hare,-87.9,41.98,SAT,San Antonio,-98.47,29.53,2
+ORD,Chicago O'Hare,-87.9,41.98,SAV,Savannah,-81.2,32.13,1
+ORD,Chicago O'Hare,-87.9,41.98,SEA,Seattle,-122.31,47.45,2
+ORD,Chicago O'Hare,-87.9,41.98,SFO,San Francisco,-122.38,37.62,6
+ORD,Chicago O'Hare,-87.9,41.98,SLC,Salt Lake City,-111.98,40.79,1
+ORD,Chicago O'Hare,-87.9,41.98,TPA,Tampa,-82.53,27.98,2
+ORD,Chicago O'Hare,-87.9,41.98,TUS,Tucson,-110.94,32.12,1
+PDX,Portland,-122.6,45.59,PIT,Pittsburgh,-80.23,40.49,1
+PDX,Portland,-122.6,45.59,PWM,Portland ME,-70.31,43.65,1
+PDX,Portland,-122.6,45.59,RDU,Raleigh,-78.79,35.88,1
+PDX,Portland,-122.6,45.59,SFO,San Francisco,-122.38,37.62,1
+PDX,Portland,-122.6,45.59,SMF,Sacramento,-121.59,38.7,1
+PHL,Philadelphia,-75.24,39.87,RAP,Rapid City,-103.06,44.05,1
+PHL,Philadelphia,-75.24,39.87,SEA,Seattle,-122.31,47.45,1
+PHX,Phoenix,-112.01,33.43,SFO,San Francisco,-122.38,37.62,2
+PHX,Phoenix,-112.01,33.43,SLC,Salt Lake City,-111.98,40.79,2
+PHX,Phoenix,-112.01,33.43,STL,St. Louis,-90.37,38.75,1
+PWM,Portland ME,-70.31,43.65,RDU,Raleigh,-78.79,35.88,1
+PWM,Portland ME,-70.31,43.65,TUS,Tucson,-110.94,32.12,1
+RAP,Rapid City,-103.06,44.05,RDU,Raleigh,-78.79,35.88,1
+RAP,Rapid City,-103.06,44.05,SEA,Seattle,-122.31,47.45,1
+RAP,Rapid City,-103.06,44.05,SLC,Salt Lake City,-111.98,40.79,1
+RAP,Rapid City,-103.06,44.05,TPA,Tampa,-82.53,27.98,1
+RDU,Raleigh,-78.79,35.88,SAN,San Diego,-117.19,32.73,1
+RDU,Raleigh,-78.79,35.88,SAT,San Antonio,-98.47,29.53,1
+RDU,Raleigh,-78.79,35.88,SEA,Seattle,-122.31,47.45,1
+RDU,Raleigh,-78.79,35.88,SFO,San Francisco,-122.38,37.62,2
+RDU,Raleigh,-78.79,35.88,SLC,Salt Lake City,-111.98,40.79,1
+RDU,Raleigh,-78.79,35.88,TPA,Tampa,-82.53,27.98,1
+RIC,Richmond,-77.32,37.51,SEA,Seattle,-122.31,47.45,1
+RIC,Richmond,-77.32,37.51,STL,St. Louis,-90.37,38.75,1
+SAN,San Diego,-117.19,32.73,SFO,San Francisco,-122.38,37.62,1
+SAT,San Antonio,-98.47,29.53,SFO,San Francisco,-122.38,37.62,1
+SAV,Savannah,-81.2,32.13,SEA,Seattle,-122.31,47.45,1
+SEA,Seattle,-122.31,47.45,SFO,San Francisco,-122.38,37.62,4
+SFO,San Francisco,-122.38,37.62,SLC,Salt Lake City,-111.98,40.79,1
+SFO,San Francisco,-122.38,37.62,SMF,Sacramento,-121.59,38.7,1

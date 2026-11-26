@@ -1,0 +1,166 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "d4f6d5490e655cd0962b",
+  "position": {
+    "x": 510,
+    "y": 60,
+    "z": 11,
+    "height": 650,
+    "width": 750,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Balance"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "Balance.Year",
+              "nativeQueryRef": "Year"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Balance"
+                    }
+                  },
+                  "Property": "Margin"
+                }
+              },
+              "queryRef": "Balance.Margin",
+              "nativeQueryRef": "Margin"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Balance"
+                    }
+                  },
+                  "Property": "Projected"
+                }
+              },
+              "queryRef": "Balance.Projected",
+              "nativeQueryRef": "Projected"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vegaLite'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\n  \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\",\n  \"description\": \"NYT-style diverging bars: margin above/below target by year\",\n  \"data\": {\n    \"name\": \"dataset\"\n  },\n  \"background\": \"#f4f4f4\",\n  \"padding\": {\n    \"left\": 10,\n    \"right\": 20,\n    \"top\": 34,\n    \"bottom\": 6\n  },\n  \"transform\": [\n    {\n      \"calculate\": \"datum.Projected == ''Yes'' ? ''Projected'' : (datum.Margin < 0 ? ''Below'' : ''Above'')\",\n      \"as\": \"Side\"\n    },\n    {\n      \"calculate\": \"abs(datum.Margin)\",\n      \"as\": \"absMargin\"\n    },\n    {\n      \"window\": [\n        {\n          \"op\": \"lag\",\n          \"field\": \"Margin\",\n          \"as\": \"prev\"\n        },\n        {\n          \"op\": \"lead\",\n          \"field\": \"Margin\",\n          \"as\": \"next\"\n        }\n      ],\n      \"sort\": [\n        {\n          \"field\": \"Year\"\n        }\n      ]\n    },\n    {\n      \"window\": [\n        {\n          \"op\": \"row_number\",\n          \"as\": \"absRank\"\n        }\n      ],\n      \"sort\": [\n        {\n          \"field\": \"absMargin\",\n          \"order\": \"descending\"\n        }\n      ]\n    },\n    {\n      \"calculate\": \"datum.Projected == ''Yes'' || datum.Margin == 0 || datum.absRank == 1 || (datum.absMargin >= 10 && datum.absMargin > abs(datum.prev || 0) && datum.absMargin >= abs(datum.next || 0) && datum.Margin * (datum.prev || datum.Margin) > 0)\",\n      \"as\": \"showLabel\"\n    },\n    {\n      \"calculate\": \"datum.Margin == 0 ? ''Even'' : (datum.Projected == ''Yes'' ? ''At least +'' + datum.absMargin + ''k (projected)'' : ''+'' + datum.absMargin + (datum.absRank == 1 ? ''k'' : ''''))\",\n      \"as\": \"label\"\n    }\n  ],\n  \"encoding\": {\n    \"y\": {\n      \"field\": \"Year\",\n      \"type\": \"ordinal\",\n      \"title\": null,\n      \"scale\": {\n        \"paddingInner\": 0.06\n      },\n      \"axis\": {\n        \"domain\": false,\n        \"ticks\": false,\n        \"labelColor\": \"#8a8a8a\",\n        \"labelFontSize\": 13,\n        \"labelPadding\": 14,\n        \"labelExpr\": \"datum.value % 10 == 0 || datum.value == 2026 ? datum.label : ''''\"\n      }\n    }\n  },\n  \"layer\": [\n    {\n      \"mark\": {\n        \"type\": \"bar\"\n      },\n      \"encoding\": {\n        \"x\": {\n          \"field\": \"Margin\",\n          \"type\": \"quantitative\",\n          \"title\": null,\n          \"scale\": {\n            \"domain\": [\n              -45,\n              45\n            ]\n          },\n          \"axis\": {\n            \"orient\": \"top\",\n            \"values\": [\n              -40,\n              -30,\n              -20,\n              -10,\n              0,\n              10,\n              20,\n              30,\n              40\n            ],\n            \"domain\": false,\n            \"ticks\": false,\n            \"grid\": true,\n            \"gridColor\": \"#dddddd\",\n            \"labelColor\": \"#8a8a8a\",\n            \"labelFontSize\": 13,\n            \"labelExpr\": \"datum.value == 0 ? ''Even'' : ''+'' + abs(datum.value)\"\n          }\n        },\n        \"color\": {\n          \"field\": \"Side\",\n          \"type\": \"nominal\",\n          \"legend\": null,\n          \"scale\": {\n            \"domain\": [\n              \"Below\",\n              \"Above\",\n              \"Projected\"\n            ],\n            \"range\": [\n              \"#5394cf\",\n              \"#e07a7a\",\n              \"#9dc3e6\"\n            ]\n          }\n        },\n        \"opacity\": {\n          \"condition\": {\n            \"test\": \"datum.__selected__ == ''off''\",\n            \"value\": 0.3\n          },\n          \"value\": 1\n        },\n        \"tooltip\": [\n          {\n            \"field\": \"Year\"\n          },\n          {\n            \"field\": \"Margin\",\n            \"title\": \"Margin ($k)\"\n          }\n        ]\n      }\n    },\n    {\n      \"mark\": {\n        \"type\": \"rule\",\n        \"color\": \"#111\",\n        \"strokeWidth\": 2\n      },\n      \"encoding\": {\n        \"x\": {\n          \"datum\": 0\n        }\n      }\n    },\n    {\n      \"transform\": [\n        {\n          \"filter\": \"datum.showLabel && datum.Margin < 0\"\n        }\n      ],\n      \"mark\": {\n        \"type\": \"text\",\n        \"fontSize\": 13,\n        \"color\": \"#8a8a8a\",\n        \"font\": \"Segoe UI\",\n        \"align\": \"right\",\n        \"dx\": -5\n      },\n      \"encoding\": {\n        \"x\": {\n          \"field\": \"Margin\",\n          \"type\": \"quantitative\"\n        },\n        \"text\": {\n          \"field\": \"label\"\n        }\n      }\n    },\n    {\n      \"transform\": [\n        {\n          \"filter\": \"datum.showLabel && datum.Margin >= 0\"\n        }\n      ],\n      \"mark\": {\n        \"type\": \"text\",\n        \"fontSize\": 13,\n        \"color\": \"#8a8a8a\",\n        \"font\": \"Segoe UI\",\n        \"align\": \"left\",\n        \"dx\": 5\n      },\n      \"encoding\": {\n        \"x\": {\n          \"field\": \"Margin\",\n          \"type\": \"quantitative\"\n        },\n        \"text\": {\n          \"field\": \"label\"\n        }\n      }\n    },\n    {\n      \"data\": {\n        \"values\": [\n          {\n            \"x\": -30,\n            \"t\": \"Below target\"\n          },\n          {\n            \"x\": 30,\n            \"t\": \"Above target\"\n          }\n        ]\n      },\n      \"mark\": {\n        \"type\": \"text\",\n        \"fontSize\": 13,\n        \"color\": \"#8a8a8a\",\n        \"dy\": -30,\n        \"font\": \"Segoe UI\"\n      },\n      \"encoding\": {\n        \"x\": {\n          \"field\": \"x\",\n          \"type\": \"quantitative\"\n        },\n        \"y\": {\n          \"value\": 0\n        },\n        \"text\": {\n          \"field\": \"t\"\n        }\n      }\n    }\n  ],\n  \"config\": {\n    \"view\": {\n      \"stroke\": null\n    },\n    \"font\": \"Segoe UI\"\n  }\n}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{}'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableHighlight": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "selectionMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'simple'"
+                }
+              }
+            },
+            "selectionMaxDataPoints": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Margin vs target by year ($k)'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

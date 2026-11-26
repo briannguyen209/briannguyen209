@@ -1,0 +1,55 @@
+table Streaks
+	lineageTag: 8cb9f709-914b-50cf-acf3-a6627472b422
+
+	column Product
+		dataType: string
+		lineageTag: 8e7790a8-c246-5e9c-b075-bdb4a3492df2
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = User
+
+	column Period
+		dataType: string
+		lineageTag: 96547bd4-c08e-5311-a10d-c0217211359a
+		summarizeBy: none
+		sourceColumn: Period
+
+		annotation SummarizationSetBy = User
+
+	column PeriodsAgo
+		dataType: int64
+		formatString: 0
+		lineageTag: 56ec7645-c6ba-58e4-9dee-556679dd86c9
+		summarizeBy: none
+		sourceColumn: PeriodsAgo
+
+		annotation SummarizationSetBy = User
+
+	column Result
+		dataType: string
+		lineageTag: d5f4cc9c-c5c7-53a5-a316-0ee1441af8fb
+		summarizeBy: none
+		sourceColumn: Result
+
+		annotation SummarizationSetBy = User
+
+	column Note
+		dataType: string
+		lineageTag: fcd3439f-52a7-5e62-95c7-bfacaad63426
+		summarizeBy: none
+		sourceColumn: Note
+
+		annotation SummarizationSetBy = User
+
+	partition Streaks = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(Binary.Decompress(Binary.FromText("dZVBbsJADEX3nII18iLjCSEsS9etoOoFUjIqEYipkrDvUXq2nqSTNBG2sVeR/tPkf/tPYN/G+nbsYR/aJtbTo3v6jPAWutulh9fYh8X+FK+hA8ywWB4QMtiFqgcuO3D/8u/3z2LXXOvQPp7g+nDkpem6UDOyXh5ywOnE86lqlBcxmb7nDqbXqMCD1wFCrgMHawXkg0cxr6Ntrr02tQA0LkUisEA0skA0tEA0NkU8ePUV2sfURGWRZ13mJToJu2KARSU6yznrU0hN97BRdYRS1R1sp7Heq4+LcpeZTMe9AzEvA7QdBujADNCJ70CMzACZecUJnZqBYexH4AcTl+nEg3M6QXCok7QvbXwcffL524/xfKw6ZfeSsN8FykQDktESJKM9SEarYEy0IRm9hJLRSiQjraw4lM1IyMqRkPUjIauIwbklCybPtQmTZ2HC5GksyI2epQmT59aEmJ4mdIDGhrLx8qCx+WwwRW8eTaa5CZOpviK3HU0LEybPjQmTZ2nC5KmvyJWDp89MmD4TZ0IEP//1/gE=", BinaryEncoding.Base64), Compression.Deflate), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"Product", type text}, {"Period", type text}, {"PeriodsAgo", Int64.Type}, {"Result", type text}, {"Note", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

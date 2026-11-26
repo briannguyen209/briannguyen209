@@ -1,0 +1,166 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "f3edad32050e5b349eab",
+  "position": {
+    "x": 20,
+    "y": 400,
+    "z": 12,
+    "height": 310,
+    "width": 620,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales"
+                    }
+                  },
+                  "Property": "Category"
+                }
+              },
+              "queryRef": "Sales.Category",
+              "nativeQueryRef": "Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales"
+                    }
+                  },
+                  "Property": "SubCategory"
+                }
+              },
+              "queryRef": "Sales.SubCategory",
+              "nativeQueryRef": "SubCategory"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "_Measures.Total Sales",
+              "nativeQueryRef": "Total Sales"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vega'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\n  \"$schema\": \"https://vega.github.io/schema/vega/v5.json\",\n  \"padding\": 5,\n  \"autosize\": \"none\",\n  \"config\": {\n    \"text\": {\n      \"font\": \"Segoe UI\"\n    },\n    \"legend\": {\n      \"labelFont\": \"Segoe UI\"\n    }\n  },\n  \"description\": \"Tableau-style packed bubbles: size = Sales by SubCategory, colour = Category\",\n  \"data\": [\n    {\n      \"name\": \"dataset\"\n    },\n    {\n      \"name\": \"agg\",\n      \"source\": \"dataset\",\n      \"transform\": [\n        {\n          \"type\": \"formula\",\n          \"expr\": \"datum[''Total Sales'']\",\n          \"as\": \"Sales\"\n        }\n      ]\n    },\n    {\n      \"name\": \"tree\",\n      \"source\": \"agg\",\n      \"transform\": [\n        {\n          \"type\": \"formula\",\n          \"expr\": \"datum.SubCategory\",\n          \"as\": \"id\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"''root''\",\n          \"as\": \"parent\"\n        }\n      ]\n    },\n    {\n      \"name\": \"rootNode\",\n      \"values\": [\n        {\n          \"id\": \"root\",\n          \"parent\": null\n        }\n      ]\n    },\n    {\n      \"name\": \"nodes\",\n      \"source\": [\n        \"rootNode\",\n        \"tree\"\n      ],\n      \"transform\": [\n        {\n          \"type\": \"stratify\",\n          \"key\": \"id\",\n          \"parentKey\": \"parent\"\n        },\n        {\n          \"type\": \"pack\",\n          \"field\": \"Sales\",\n          \"sort\": {\n            \"field\": \"value\",\n            \"order\": \"descending\"\n          },\n          \"size\": [\n            {\n              \"signal\": \"width\"\n            },\n            {\n              \"signal\": \"height\"\n            }\n          ],\n          \"padding\": 4\n        }\n      ]\n    }\n  ],\n  \"scales\": [\n    {\n      \"name\": \"color\",\n      \"type\": \"ordinal\",\n      \"domain\": {\n        \"data\": \"agg\",\n        \"field\": \"Category\"\n      },\n      \"range\": {\n        \"scheme\": \"tableau10\"\n      }\n    }\n  ],\n  \"legends\": [\n    {\n      \"fill\": \"color\",\n      \"title\": \"Category\",\n      \"orient\": \"top-left\"\n    }\n  ],\n  \"marks\": [\n    {\n      \"type\": \"symbol\",\n      \"from\": {\n        \"data\": \"nodes\"\n      },\n      \"encode\": {\n        \"enter\": {\n          \"shape\": {\n            \"value\": \"circle\"\n          }\n        },\n        \"update\": {\n          \"x\": {\n            \"field\": \"x\"\n          },\n          \"y\": {\n            \"field\": \"y\"\n          },\n          \"size\": {\n            \"signal\": \"4*datum.r*datum.r\"\n          },\n          \"fill\": [\n            {\n              \"test\": \"datum.id==''root''\",\n              \"value\": \"transparent\"\n            },\n            {\n              \"scale\": \"color\",\n              \"field\": \"Category\"\n            }\n          ],\n          \"stroke\": [\n            {\n              \"test\": \"datum.id==''rootNode''||datum.id==''root''\",\n              \"value\": \"transparent\"\n            },\n            {\n              \"value\": \"white\"\n            }\n          ],\n          \"tooltip\": {\n            \"signal\": \"datum.id==''root''?null:{SubCategory:datum.SubCategory,Sales:format(datum.Sales,'',.0f'')}\"\n          },\n          \"fillOpacity\": {\n            \"signal\": \"datum.__selected__ == ''off'' ? 0.3 : 1\"\n          }\n        }\n      }\n    },\n    {\n      \"type\": \"text\",\n      \"from\": {\n        \"data\": \"nodes\"\n      },\n      \"encode\": {\n        \"update\": {\n          \"x\": {\n            \"field\": \"x\"\n          },\n          \"y\": {\n            \"field\": \"y\"\n          },\n          \"align\": {\n            \"value\": \"center\"\n          },\n          \"baseline\": {\n            \"value\": \"middle\"\n          },\n          \"text\": {\n            \"signal\": \"datum.id==''root''||datum.r<16?'''':datum.SubCategory\"\n          },\n          \"fill\": {\n            \"value\": \"white\"\n          },\n          \"fontSize\": {\n            \"signal\": \"max(9,min(14,datum.r/4))\"\n          }\n        }\n      }\n    }\n  ],\n  \"background\": \"white\"\n}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{}'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableHighlight": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "selectionMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'simple'"
+                }
+              }
+            },
+            "selectionMaxDataPoints": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Packed bubbles (Vega)'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

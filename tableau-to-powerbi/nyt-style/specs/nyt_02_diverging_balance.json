@@ -1,0 +1,256 @@
+{
+ "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+ "description": "NYT-style diverging bars: margin above/below target by year",
+ "data": {
+  "name": "dataset"
+ },
+ "background": "#f4f4f4",
+ "padding": {
+  "left": 10,
+  "right": 20,
+  "top": 34,
+  "bottom": 6
+ },
+ "transform": [
+  {
+   "calculate": "datum.Projected == 'Yes' ? 'Projected' : (datum.Margin < 0 ? 'Below' : 'Above')",
+   "as": "Side"
+  },
+  {
+   "calculate": "abs(datum.Margin)",
+   "as": "absMargin"
+  },
+  {
+   "window": [
+    {
+     "op": "lag",
+     "field": "Margin",
+     "as": "prev"
+    },
+    {
+     "op": "lead",
+     "field": "Margin",
+     "as": "next"
+    }
+   ],
+   "sort": [
+    {
+     "field": "Year"
+    }
+   ]
+  },
+  {
+   "window": [
+    {
+     "op": "row_number",
+     "as": "absRank"
+    }
+   ],
+   "sort": [
+    {
+     "field": "absMargin",
+     "order": "descending"
+    }
+   ]
+  },
+  {
+   "calculate": "datum.Projected == 'Yes' || datum.Margin == 0 || datum.absRank == 1 || (datum.absMargin >= 10 && datum.absMargin > abs(datum.prev || 0) && datum.absMargin >= abs(datum.next || 0) && datum.Margin * (datum.prev || datum.Margin) > 0)",
+   "as": "showLabel"
+  },
+  {
+   "calculate": "datum.Margin == 0 ? 'Even' : (datum.Projected == 'Yes' ? 'At least +' + datum.absMargin + 'k (projected)' : '+' + datum.absMargin + (datum.absRank == 1 ? 'k' : ''))",
+   "as": "label"
+  }
+ ],
+ "encoding": {
+  "y": {
+   "field": "Year",
+   "type": "ordinal",
+   "title": null,
+   "scale": {
+    "paddingInner": 0.06
+   },
+   "axis": {
+    "domain": false,
+    "ticks": false,
+    "labelColor": "#8a8a8a",
+    "labelFontSize": 13,
+    "labelPadding": 14,
+    "labelExpr": "datum.value % 10 == 0 || datum.value == 2026 ? datum.label : ''"
+   }
+  }
+ },
+ "layer": [
+  {
+   "mark": {
+    "type": "bar"
+   },
+   "encoding": {
+    "x": {
+     "field": "Margin",
+     "type": "quantitative",
+     "title": null,
+     "scale": {
+      "domain": [
+       -45,
+       45
+      ]
+     },
+     "axis": {
+      "orient": "top",
+      "values": [
+       -40,
+       -30,
+       -20,
+       -10,
+       0,
+       10,
+       20,
+       30,
+       40
+      ],
+      "domain": false,
+      "ticks": false,
+      "grid": true,
+      "gridColor": "#dddddd",
+      "labelColor": "#8a8a8a",
+      "labelFontSize": 13,
+      "labelExpr": "datum.value == 0 ? 'Even' : '+' + abs(datum.value)"
+     }
+    },
+    "color": {
+     "field": "Side",
+     "type": "nominal",
+     "legend": null,
+     "scale": {
+      "domain": [
+       "Below",
+       "Above",
+       "Projected"
+      ],
+      "range": [
+       "#5394cf",
+       "#e07a7a",
+       "#9dc3e6"
+      ]
+     }
+    },
+    "opacity": {
+     "condition": {
+      "test": "datum.__selected__ == 'off'",
+      "value": 0.3
+     },
+     "value": 1
+    },
+    "tooltip": [
+     {
+      "field": "Year"
+     },
+     {
+      "field": "Margin",
+      "title": "Margin ($k)"
+     }
+    ]
+   }
+  },
+  {
+   "mark": {
+    "type": "rule",
+    "color": "#111",
+    "strokeWidth": 2
+   },
+   "encoding": {
+    "x": {
+     "datum": 0
+    }
+   }
+  },
+  {
+   "transform": [
+    {
+     "filter": "datum.showLabel && datum.Margin < 0"
+    }
+   ],
+   "mark": {
+    "type": "text",
+    "fontSize": 13,
+    "color": "#8a8a8a",
+    "font": "Segoe UI",
+    "align": "right",
+    "dx": -5
+   },
+   "encoding": {
+    "x": {
+     "field": "Margin",
+     "type": "quantitative"
+    },
+    "text": {
+     "field": "label"
+    }
+   }
+  },
+  {
+   "transform": [
+    {
+     "filter": "datum.showLabel && datum.Margin >= 0"
+    }
+   ],
+   "mark": {
+    "type": "text",
+    "fontSize": 13,
+    "color": "#8a8a8a",
+    "font": "Segoe UI",
+    "align": "left",
+    "dx": 5
+   },
+   "encoding": {
+    "x": {
+     "field": "Margin",
+     "type": "quantitative"
+    },
+    "text": {
+     "field": "label"
+    }
+   }
+  },
+  {
+   "data": {
+    "values": [
+     {
+      "x": -30,
+      "t": "Below target"
+     },
+     {
+      "x": 30,
+      "t": "Above target"
+     }
+    ]
+   },
+   "mark": {
+    "type": "text",
+    "fontSize": 13,
+    "color": "#8a8a8a",
+    "dy": -30,
+    "font": "Segoe UI"
+   },
+   "encoding": {
+    "x": {
+     "field": "x",
+     "type": "quantitative"
+    },
+    "y": {
+     "value": 0
+    },
+    "text": {
+     "field": "t"
+    }
+   }
+  }
+ ],
+ "config": {
+  "view": {
+   "stroke": null
+  },
+  "font": "Segoe UI"
+ }
+}

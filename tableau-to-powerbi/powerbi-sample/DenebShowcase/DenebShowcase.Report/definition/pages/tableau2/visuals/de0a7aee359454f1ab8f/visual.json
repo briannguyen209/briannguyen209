@@ -1,0 +1,180 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "de0a7aee359454f1ab8f",
+  "position": {
+    "x": 650,
+    "y": 400,
+    "z": 13,
+    "height": 310,
+    "width": 610,
+    "tabOrder": 13
+  },
+  "visual": {
+    "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales"
+                    }
+                  },
+                  "Property": "Category"
+                }
+              },
+              "queryRef": "Sales.Category",
+              "nativeQueryRef": "Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales"
+                    }
+                  },
+                  "Property": "SubCategory"
+                }
+              },
+              "queryRef": "Sales.SubCategory",
+              "nativeQueryRef": "SubCategory"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "_Measures.Total Sales",
+              "nativeQueryRef": "Total Sales"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Profit"
+                }
+              },
+              "queryRef": "_Measures.Total Profit",
+              "nativeQueryRef": "Total Profit"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "vega": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'vega'"
+                }
+              }
+            },
+            "jsonSpec": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\n  \"$schema\": \"https://vega.github.io/schema/vega/v5.json\",\n  \"padding\": {\n    \"top\": 5,\n    \"left\": 5,\n    \"right\": 5,\n    \"bottom\": 50\n  },\n  \"autosize\": \"none\",\n  \"config\": {\n    \"text\": {\n      \"font\": \"Segoe UI\"\n    },\n    \"legend\": {\n      \"labelFont\": \"Segoe UI\"\n    }\n  },\n  \"description\": \"Tableau-style treemap: Category > SubCategory, size = Sales, colour = Profit\",\n  \"data\": [\n    {\n      \"name\": \"dataset\"\n    },\n    {\n      \"name\": \"leaf\",\n      \"source\": \"dataset\",\n      \"transform\": [\n        {\n          \"type\": \"formula\",\n          \"expr\": \"datum[''Total Sales'']\",\n          \"as\": \"Sales\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"datum[''Total Profit'']\",\n          \"as\": \"Profit\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"datum.Category+''|''+datum.SubCategory\",\n          \"as\": \"id\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"datum.Category\",\n          \"as\": \"parent\"\n        }\n      ]\n    },\n    {\n      \"name\": \"cats\",\n      \"source\": \"dataset\",\n      \"transform\": [\n        {\n          \"type\": \"aggregate\",\n          \"groupby\": [\n            \"Category\"\n          ]\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"datum.Category\",\n          \"as\": \"id\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"''root''\",\n          \"as\": \"parent\"\n        }\n      ]\n    },\n    {\n      \"name\": \"rootNode\",\n      \"values\": [\n        {\n          \"id\": \"root\",\n          \"parent\": null\n        }\n      ]\n    },\n    {\n      \"name\": \"tree\",\n      \"source\": [\n        \"rootNode\",\n        \"cats\",\n        \"leaf\"\n      ],\n      \"transform\": [\n        {\n          \"type\": \"stratify\",\n          \"key\": \"id\",\n          \"parentKey\": \"parent\"\n        },\n        {\n          \"type\": \"treemap\",\n          \"field\": \"Sales\",\n          \"sort\": {\n            \"field\": \"value\"\n          },\n          \"round\": true,\n          \"method\": \"squarify\",\n          \"size\": [\n            {\n              \"signal\": \"width\"\n            },\n            {\n              \"signal\": \"height\"\n            }\n          ],\n          \"paddingInner\": 2,\n          \"paddingOuter\": 0,\n          \"paddingTop\": 18\n        }\n      ]\n    },\n    {\n      \"name\": \"leaves\",\n      \"source\": \"tree\",\n      \"transform\": [\n        {\n          \"type\": \"filter\",\n          \"expr\": \"datum.SubCategory\"\n        }\n      ]\n    },\n    {\n      \"name\": \"groups\",\n      \"source\": \"tree\",\n      \"transform\": [\n        {\n          \"type\": \"filter\",\n          \"expr\": \"datum.depth==1\"\n        }\n      ]\n    }\n  ],\n  \"scales\": [\n    {\n      \"name\": \"color\",\n      \"type\": \"linear\",\n      \"domain\": {\n        \"data\": \"leaves\",\n        \"field\": \"Profit\"\n      },\n      \"range\": [\n        \"#e8a87c\",\n        \"#5b8fc7\",\n        \"#1f4e89\"\n      ],\n      \"zero\": false\n    }\n  ],\n  \"legends\": [\n    {\n      \"fill\": \"color\",\n      \"title\": \"Profit\",\n      \"orient\": \"bottom\",\n      \"direction\": \"horizontal\",\n      \"format\": \",.0f\",\n      \"gradientLength\": 200\n    }\n  ],\n  \"marks\": [\n    {\n      \"type\": \"rect\",\n      \"from\": {\n        \"data\": \"groups\"\n      },\n      \"encode\": {\n        \"update\": {\n          \"x\": {\n            \"field\": \"x0\"\n          },\n          \"y\": {\n            \"field\": \"y0\"\n          },\n          \"x2\": {\n            \"field\": \"x1\"\n          },\n          \"y2\": {\n            \"field\": \"y1\"\n          },\n          \"fill\": {\n            \"value\": \"#f3f3f3\"\n          }\n        }\n      }\n    },\n    {\n      \"type\": \"text\",\n      \"from\": {\n        \"data\": \"groups\"\n      },\n      \"encode\": {\n        \"update\": {\n          \"x\": {\n            \"signal\": \"datum.x0+4\"\n          },\n          \"y\": {\n            \"signal\": \"datum.y0+13\"\n          },\n          \"text\": {\n            \"field\": \"Category\"\n          },\n          \"fontWeight\": {\n            \"value\": \"bold\"\n          },\n          \"fill\": {\n            \"value\": \"#333\"\n          }\n        }\n      }\n    },\n    {\n      \"type\": \"rect\",\n      \"from\": {\n        \"data\": \"leaves\"\n      },\n      \"encode\": {\n        \"update\": {\n          \"x\": {\n            \"field\": \"x0\"\n          },\n          \"y\": {\n            \"field\": \"y0\"\n          },\n          \"x2\": {\n            \"field\": \"x1\"\n          },\n          \"y2\": {\n            \"field\": \"y1\"\n          },\n          \"fill\": {\n            \"scale\": \"color\",\n            \"field\": \"Profit\"\n          },\n          \"stroke\": {\n            \"value\": \"white\"\n          },\n          \"tooltip\": {\n            \"signal\": \"{Category:datum.Category,SubCategory:datum.SubCategory,Sales:format(datum.Sales,'',.0f''),Profit:format(datum.Profit,'',.0f'')}\"\n          },\n          \"fillOpacity\": {\n            \"signal\": \"datum.__selected__ == ''off'' ? 0.3 : 1\"\n          }\n        }\n      }\n    },\n    {\n      \"type\": \"text\",\n      \"from\": {\n        \"data\": \"leaves\"\n      },\n      \"encode\": {\n        \"update\": {\n          \"x\": {\n            \"signal\": \"datum.x0+5\"\n          },\n          \"y\": {\n            \"signal\": \"datum.y0+15\"\n          },\n          \"text\": {\n            \"signal\": \"[datum.SubCategory, format(datum.Sales,'',.0f'')]\"\n          },\n          \"fill\": {\n            \"value\": \"white\"\n          },\n          \"fontSize\": {\n            \"value\": 11\n          },\n          \"limit\": {\n            \"signal\": \"max(0,datum.x1-datum.x0-8)\"\n          },\n          \"lineHeight\": {\n            \"value\": 14\n          }\n        }\n      }\n    }\n  ],\n  \"background\": \"white\"\n}'"
+                }
+              }
+            },
+            "jsonConfig": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{}'"
+                }
+              }
+            },
+            "enableTooltips": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableContextMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableHighlight": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "selectionMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'simple'"
+                }
+              }
+            },
+            "selectionMaxDataPoints": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Treemap: size = Sales, colour = Profit (Vega)'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,87 @@
+table Routes
+	lineageTag: 1efd8c5b-3e0d-5bb3-aeb3-747fe61a5c90
+
+	column Origin
+		dataType: string
+		lineageTag: 0b2ff2b1-4a0e-5ce1-8853-301765fa7468
+		summarizeBy: none
+		sourceColumn: Origin
+
+		annotation SummarizationSetBy = User
+
+	column OriginName
+		dataType: string
+		lineageTag: f138d6ab-1173-542e-b05b-a53414dfbe62
+		summarizeBy: none
+		sourceColumn: OriginName
+
+		annotation SummarizationSetBy = User
+
+	column OriginLon
+		dataType: double
+		lineageTag: cd09a289-5191-5d1c-9129-9c2f821e9168
+		summarizeBy: none
+		sourceColumn: OriginLon
+
+		annotation SummarizationSetBy = User
+
+	column OriginLat
+		dataType: double
+		lineageTag: 4b5e7a7d-e02a-522e-91fb-1c1cccf15dd3
+		summarizeBy: none
+		sourceColumn: OriginLat
+
+		annotation SummarizationSetBy = User
+
+	column Dest
+		dataType: string
+		lineageTag: a55f16dc-1430-5b27-9754-3a3b87ab253e
+		summarizeBy: none
+		sourceColumn: Dest
+
+		annotation SummarizationSetBy = User
+
+	column DestName
+		dataType: string
+		lineageTag: 7b74aca3-c511-5f2d-8247-6e4258704dbe
+		summarizeBy: none
+		sourceColumn: DestName
+
+		annotation SummarizationSetBy = User
+
+	column DestLon
+		dataType: double
+		lineageTag: 6aafc07e-28dd-5704-9431-15f2cf7aa661
+		summarizeBy: none
+		sourceColumn: DestLon
+
+		annotation SummarizationSetBy = User
+
+	column DestLat
+		dataType: double
+		lineageTag: e997c133-ebc4-54ce-b0a3-e0412c6f669c
+		summarizeBy: none
+		sourceColumn: DestLat
+
+		annotation SummarizationSetBy = User
+
+	column Cancelled
+		dataType: int64
+		formatString: 0
+		lineageTag: de481982-96ae-525e-a3e4-b0503864310c
+		summarizeBy: none
+		sourceColumn: Cancelled
+
+		annotation SummarizationSetBy = User
+
+	partition Routes = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(Binary.Decompress(Binary.FromText("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", BinaryEncoding.Base64), Compression.Deflate), [Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"Origin", type text}, {"OriginName", type text}, {"OriginLon", type number}, {"OriginLat", type number}, {"Dest", type text}, {"DestName", type text}, {"DestLon", type number}, {"DestLat", type number}, {"Cancelled", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
